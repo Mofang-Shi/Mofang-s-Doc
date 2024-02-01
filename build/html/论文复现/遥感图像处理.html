@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>(TGRS, 2022) 遥感图像处理 &mdash; Mofang&#39;s Docs v0.0 文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="关于此文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="prev" title="关于" href="../about.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Mofang's Docs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">教程</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reStructureText%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8.html">reStructureText语法入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git%E4%B8%8Egh%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">git&amp;gh教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">Linux基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Makefile%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">Makefile基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">正则表达式教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Vim%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B.html">Vim编辑器基础教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E6%89%8B%E6%90%93%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html">Python手搓神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">关于</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文复现</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">(TGRS, 2022) 遥感图像处理</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">一、基本知识</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">卫星遥感的分辨率及图像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hsi">高光谱图像HSI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">三类数字图像——伪彩色，真彩色，假彩色</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">高光谱数据集</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">二、论文使用的方法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lif">LIF神经元模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">近似导数算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">直接编码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">主成分分析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">脉冲标准卷积和深度可分离卷积</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">提出模型的结构及参数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pythonpytroch">二、使用Python基于Pytroch复现</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id12">数据预处理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">脉冲网络模型</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#python">三、使用Python无框架复现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c">四、使用C#复现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">五、硬件电路实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id15">参考资料</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Mofang's Docs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">(TGRS, 2022) 遥感图像处理</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/论文复现/遥感图像处理.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tgrs-2022">
+<h1>(TGRS, 2022) 遥感图像处理<a class="headerlink" href="#tgrs-2022" title="此标题的永久链接"></a></h1>
+<dl class="simple">
+<dt>论文题目:</dt><dd><p><a class="reference external" href="https://www.researchgate.net/publication/363602706_Hyperspectral_Image_Classification_of_Brain-Inspired_Spiking_Neural_Network_Based_on_Approximate_Derivative_Algorithm">Hyperspectral Image Classification of Brain-Inspired Spiking Neural Network Based on Approximate Derivative Algorithm</a></p>
+</dd>
+<dt>关键词：</dt><dd><ul class="simple">
+<li><p>Approximate derivative algorithm          近似导数算法</p></li>
+<li><p>Hyperspectral image (HSI) classification  高光谱图像分类</p></li>
+<li><p>Spiking neural network                    脉冲神经网络</p></li>
+</ul>
+</dd>
+</dl>
+<section id="id1">
+<h2>一、基本知识<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h2>
+<section id="id2">
+<h3>卫星遥感的分辨率及图像<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h3>
+<p>卫星遥感，可以理解为遥远的感知。遥感技术利用搭载在遥感平台上面的传感器对目标地物发射或反射的电磁波信息记录下来从而形成遥感影像（或其他遥感数据）。</p>
+<ul class="simple">
+<li><p><strong>空间分辨率</strong></p></li>
+</ul>
+<p>对遥感影像空间细节信息的辨别能力，指传感器能够分辨最小目标地物大小，是实际卫星观测影像中的一个像素所对应的地面范围。如，WorldView-2卫星全色图像空间分辨率是0.5m，指的是影像中的一个像素所对应的实际地面大小为，高空间分辨率图像对于影响目标地物的识别和目视解译等具有重要的作用；</p>
+<ul class="simple">
+<li><p><strong>光谱分辨率</strong></p></li>
+</ul>
+<p>对影像中地物波谱细节信息的分辨能力，是卫星传感器接收地物反射波谱时所能辨别的最小波长间隔，当间隔较小时，光谱分辨率相应就会越髙，在同样的波谱范围下，通常影像波段数越多，光谱分辨率越高，如高光谱影像往往比多光谱影像具有更髙的光谱分辨率，高光谱分辨率对于影像地物的分类识别等具有重要意义；</p>
+<ul class="simple">
+<li><p><strong>时间分辨率</strong></p></li>
+</ul>
+<p>对同一地点的重复观测能力，通常也把时间分辨率称为重访周期，重访周期越短，时间分辨率越髙。髙时间分辨率对于地物的动态变化检测等具有重要作用。</p>
+</section>
+<section id="hsi">
+<h3>高光谱图像HSI<a class="headerlink" href="#hsi" title="此标题的永久链接"></a></h3>
+<p>高光谱图像(Hyperspectral image, HSI)最大特点是将成像技术与光谱探测技术结合，在对目标的空间特征成像的同时，
+对每个空间像元经过色散形成几十个乃至几百个窄波段以进行连续的光谱覆盖。
+这样形成的数据可以用“ <strong>三维数据块</strong> ”来形象地描述，如下图所示。
+其中x和y表示二维平面像素信息坐标轴，第三维（λ轴）是波长信息坐标轴。</p>
+<a class="reference internal image-reference" href="../_images/def_of_HSI.png"><img alt="../_images/def_of_HSI.png" class="align-center" src="../_images/def_of_HSI.png" style="width: 448.0px; height: 333.2px;" /></a>
+<p>高光谱图像集样本的图像信息与光谱信息于一身。图像信息可以反映样本的大小、形状、缺陷等外部品质特征，
+<strong>由于不同成分对光谱吸收也不同</strong>，在某个特定波长下图像对某个缺陷会有较显著的反映，
+而光谱信息能充分反映样品内部的物理结构、化学成分的差异。这些特点决定了高光谱图像技术在农产品内外部品质的检测方面的独特优势。</p>
+</section>
+<section id="id3">
+<h3>三类数字图像——伪彩色，真彩色，假彩色<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>伪彩色</strong>：</p></li>
+</ul>
+<blockquote>
+<div><p>同灰度图像一样,也是单波段的图像，但是这个单波段图像是有颜色的，不再是灰度图那样的，而是它的 <strong>每一个灰度值都对应颜色空间中的某一种颜色</strong>。
+它可以是彩色的图像，但是需要时刻谨记的是该图像只是单通道的。伪彩色图像其实就是索引图像，其颜色值是根据索引而得到的。</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>真彩色</strong>：</p></li>
+</ul>
+<blockquote>
+<div><p>真彩色是指在组成一幅彩色图像的每个像素值中，有R、G、B三个基色分量，每个基色分量直接决定显示设备的基色强度产生彩色。
+真彩色图像就是我们平时见到的可见光R、G、B3个波段对应生成R、G、B3个通道的图像。</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>假彩色</strong>：</p></li>
+</ul>
+<blockquote>
+<div><p>假彩色图像也是3通道的，但是它的3个通道不再是RGB3个波段的信息，而是用其他的波段来组成的3通道图像。
+如landsat 7/ETM+有八个波段，用其中三个波段合成的图像就是假彩色图像。</p>
+</div></blockquote>
+</div></blockquote>
+</section>
+<section id="id4">
+<h3>高光谱数据集<a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
+<p>常用高光谱数据集的介绍参见
+<a class="reference external" href="http://www.tup.tsinghua.edu.cn/upload/books/yz/097167-01.pdf">3.1.2 常用高光谱数据集</a>
+。常见的高光谱数据集数据均以.mat格式储存，即Matlab的数组形式。以Pavia University scene数据集为例，
+包括遥感数据（PaviaU.mat）和groundtruth标签数据（PaviaU_gt.mat）。</p>
+<table class="docutils align-center">
+<colgroup>
+<col style="width: 33.3%" />
+<col style="width: 66.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>数据文件</p></th>
+<th class="head"><p>描述</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>PaviaU.mat</p></td>
+<td><p>遥感数据，格式为三维Matlab数组。（像素长，像素宽，波段数）=610x340x103</p></td>
+</tr>
+<tr class="row-odd"><td><p>PaviaU_gt.mat</p></td>
+<td><p>地面实际地物数据，相当于标签。包括没有意义的背景（一般为0），和每个像素的地物类别（1，2，3等）。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="id6">
+<h2>二、论文使用的方法<a class="headerlink" href="#id6" title="此标题的永久链接"></a></h2>
+<section id="lif">
+<h3>LIF神经元模型<a class="headerlink" href="#lif" title="此标题的永久链接"></a></h3>
+<p>LIF模型的膜电位 <span class="math notranslate nohighlight">\(V\)</span> 的公式如下:</p>
+<div class="math notranslate nohighlight">
+\[{\tau}_{m}\frac{dV}{dt}=-V+I(t)\tag{1}\]</div>
+<p>其中其中 <span class="math notranslate nohighlight">\({\tau}_{m}\)</span> 是膜电位衰减常数， <span class="math notranslate nohighlight">\(I\)</span> 是输入电流。
+<strong>为了使LIF神经元能够在短时间内积累更多的脉冲信号</strong>，该论文使用了
+<a class="reference external" href="https://aaai.org/papers/01311-direct-training-for-spiking-neural-networks-faster-larger-better/">Wu, 2019</a>
+等人提出的一种改进的LIF神经元模型，改进的LIF神经元膜电位 <span class="math notranslate nohighlight">\(v(t)\)</span> 的公式如下所示:</p>
+<div class="math notranslate nohighlight">
+\[{v}_{i}^{t}=(1-{\tau}_{m}^{'}){v}_{i}^{t-1}
++{\tau}_{m}^{'}\sum_j{{\omega}_{ij}o_j^t}, {\tau}_{m}^{'}\in{(0,1)}
+\tag{2}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}o_j^t=
+\begin{cases}
+0,\quad{v}_{j}^{t}\lt{V}_{th}\\
+1,\quad{v}_{j}^{t}\geqslant{V}_{th}
+\end{cases}\end{split}\]</div>
+<p>网络最后一层的神经元将接收所有脉冲，并将最后一层的膜电位 <span class="math notranslate nohighlight">\(V\)</span> 除以总时间步得到最终输出：</p>
+<div class="math notranslate nohighlight">
+\[output=
+\frac{V(t)}{time \quad steps}\]</div>
+</section>
+<section id="id7">
+<h3>近似导数算法<a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
+<p>定义损失函数 <span class="math notranslate nohighlight">\(L\)</span> ，根据链式法则更新每层的权重 <span class="math notranslate nohighlight">\(\omega\)</span>。权重 <span class="math notranslate nohighlight">\(\omega\)</span> 的导数可以表示为：</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial L}{\partial {\omega}}=
+\frac{\partial L}{\partial O}
+\frac{\partial O}{\partial V}
+\frac{\partial V}{\partial {\omega}}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(L\)</span> 为损失函数， <span class="math notranslate nohighlight">\(\omega\)</span> 是网络权重参数， <span class="math notranslate nohighlight">\(V\)</span> 表示神经元的膜电位， <span class="math notranslate nohighlight">\(O\)</span> 表示神经元激活后的输出脉冲。
+因为离散脉冲不能微分，在SNN的训练中，不可能通过BP算法直接优化网络权重。文章提出了一个近似函数 <span class="math notranslate nohighlight">\(f(v-v_{th})\)</span> ：</p>
+<div class="math notranslate nohighlight">
+\[f(v-v_{th})=|1-(v-v_{th})^2|\lt \delta, \quad \delta \in (0 \sim 1] \tag{3}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\delta\)</span> 是一个自定义参数，当 <span class="math notranslate nohighlight">\(f(v-v_{th})\)</span> 在脉冲产生处即 <span class="math notranslate nohighlight">\(v-v_{th}\)</span> 接近零时，函数 <span class="math notranslate nohighlight">\(f(v-v_{th})\)</span> 与函数 <span class="math notranslate nohighlight">\(O(v-v_{th})\)</span> 具有相同的函数值。</p>
+<a class="reference internal image-reference" href="../_images/HSI_Fig2.png"><img alt="../_images/HSI_Fig2.png" class="align-center" src="../_images/HSI_Fig2.png" style="width: 679.44px; height: 365.56px;" /></a>
+<p>从而公式（3）中对网络权重 <span class="math notranslate nohighlight">\(\omega\)</span> 的优化可以近似为：</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial L}{\partial {\omega}}=
+\frac{\partial L}{\partial O}
+\frac{\partial O}{\partial V}
+\frac{\partial V}{\partial {\omega}}\approx
+\frac{\partial L}{\partial O}
+\frac{\partial f}{\partial V}
+\frac{\partial V}{\partial {\omega}}\]</div>
+</section>
+<section id="id8">
+<h3>直接编码<a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
+<p>文章使用了
+<a class="reference external" href="https://arxiv.org/abs/2008.03658">Rathi, 2020</a>
+等人提出的直接编码方法，图像的模拟像素值直接应用于SNN的输入层，而无需转换为脉冲再训练。
+第一个卷积层将被训练成将输入转换为脉冲，其中LIF神经元整合加权输入，并在膜电位超过训练的点火阈值时产生输出脉冲。</p>
+</section>
+<section id="id9">
+<h3>主成分分析<a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
+<p>主成分分析法的目的主要是从几百个波段中提取主成分波段作为光谱特征，主成分波段包含了原始图像的大多数信息。</p>
+</section>
+<section id="id10">
+<h3>脉冲标准卷积和深度可分离卷积<a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
+<a class="reference internal image-reference" href="../_images/HSI_Fig5_6.png"><img alt="../_images/HSI_Fig5_6.png" class="align-center" src="../_images/HSI_Fig5_6.png" style="width: 609.0px; height: 614.5999999999999px;" /></a>
+</section>
+<section id="id11">
+<h3>提出模型的结构及参数<a class="headerlink" href="#id11" title="此标题的永久链接"></a></h3>
+<a class="reference internal image-reference" href="../_images/HSI_Fig7.png"><img alt="../_images/HSI_Fig7.png" class="align-center" src="../_images/HSI_Fig7.png" style="width: 644.0px; height: 307.29999999999995px;" /></a>
+<a class="reference internal image-reference" href="../_images/HSI_Table1.png"><img alt="../_images/HSI_Table1.png" class="align-center" src="../_images/HSI_Table1.png" style="width: 586.5999999999999px; height: 399.7px;" /></a>
+</section>
+</section>
+<section id="pythonpytroch">
+<h2>二、使用Python基于Pytroch复现<a class="headerlink" href="#pythonpytroch" title="此标题的永久链接"></a></h2>
+<section id="id12">
+<h3>数据预处理<a class="headerlink" href="#id12" title="此标题的永久链接"></a></h3>
+<p>文章使用了6个公开数据集，选择PU数据集进行分析。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从mat文件中加载数据和标签</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;/Users/shimofang/Downloads/HSI_SNN-main/data/PaviaU.mat&#39;</span><span class="p">)[</span><span class="s1">&#39;paviaU&#39;</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;/Users/shimofang/Downloads/HSI_SNN-main/data/PaviaU_gt.mat&#39;</span><span class="p">)[</span><span class="s1">&#39;paviaU_gt&#39;</span><span class="p">]</span>
+<span class="n">label_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Asphalt&#39;</span><span class="p">,</span> <span class="s1">&#39;Meadows&#39;</span><span class="p">,</span> <span class="s1">&#39;Gravel&#39;</span><span class="p">,</span> <span class="s1">&#39;Trees&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Painted metal sheets&#39;</span><span class="p">,</span> <span class="s1">&#39;Bare Soil&#39;</span><span class="p">,</span> <span class="s1">&#39;Bitumen&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Self-Blocking Bricks&#39;</span><span class="p">,</span> <span class="s1">&#39;Shadows&#39;</span><span class="p">]</span>
+
+<span class="n">num_class</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># 地物的数量，减一是因为像素中包含了背景像素</span>
+<span class="n">shapeor</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># 数据类型=numpy.ndarray,(像素长,像素宽，波段数)=(610, 340, 103)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># 数据形状=(610*340, 103)=(207400, 103)</span>
+<span class="c1"># 主成分分析法减少波段数（降维）</span>
+<span class="n">num_components</span> <span class="o">=</span> <span class="mi">20</span>  <span class="c1"># 需要的成分数量</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">num_components</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># 降维后的数据</span>
+<span class="n">shapeor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shapeor</span><span class="p">)</span>
+<span class="n">shapeor</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">num_components</span>  <span class="c1"># [610, 340, n_components]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shapeor</span><span class="p">)</span>  <span class="c1"># 把数据形状变回(610, 340, n_components)</span>
+
+<span class="c1"># ==========================================================================</span>
+<span class="c1"># 创建像素立方体</span>
+<span class="c1"># ==========================================================================</span>
+<span class="n">spatial_size</span> <span class="o">=</span> <span class="mi">13</span>
+<span class="n">num_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">labels</span><span class="p">[:,</span> <span class="p">:])</span>  <span class="c1"># 标签样本总数, 非0数</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;num_labels(标签样本总数, 非0数):&quot;</span><span class="p">,</span> <span class="n">num_labels</span><span class="p">)</span>  <span class="c1"># 42776</span>
+<span class="n">margin</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">spatial_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># margin=6</span>
+
+<span class="c1"># 数据填充margin圈0</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;padWithZeros前的X.shape：&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># (610, 340, 20)</span>
+<span class="n">zeroPaddedX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">margin</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">margin</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+<span class="n">x_offset</span> <span class="o">=</span> <span class="n">margin</span>
+<span class="n">y_offset</span> <span class="o">=</span> <span class="n">margin</span>
+<span class="n">zeroPaddedX</span><span class="p">[</span><span class="n">x_offset</span><span class="p">:</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x_offset</span><span class="p">,</span> <span class="n">y_offset</span><span class="p">:</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">y_offset</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">data</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;padWithZeros后的zeroPaddedX.shape：&quot;</span><span class="p">,</span> <span class="n">zeroPaddedX</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># (622, 352, 20)</span>
+
+<span class="c1"># split patches</span>
+<span class="n">patchIndex</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">patchesData</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_labels</span><span class="p">,</span> <span class="n">spatial_size</span><span class="p">,</span> <span class="n">spatial_size</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+<span class="n">patchesLabels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_labels</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">margin</span><span class="p">,</span> <span class="n">zeroPaddedX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">margin</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">margin</span><span class="p">,</span> <span class="n">zeroPaddedX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">margin</span><span class="p">):</span>  <span class="c1"># 两个for遍历没有加0的那一块数据</span>
+        <span class="k">if</span> <span class="n">labels</span><span class="p">[</span><span class="n">r</span> <span class="o">-</span> <span class="n">margin</span><span class="p">,</span> <span class="n">c</span> <span class="o">-</span> <span class="n">margin</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># 判断该位置对应的像素是背景还是地物</span>
+            <span class="n">patch</span> <span class="o">=</span> <span class="n">zeroPaddedX</span><span class="p">[</span><span class="n">r</span> <span class="o">-</span> <span class="n">margin</span><span class="p">:</span><span class="n">r</span> <span class="o">+</span> <span class="n">margin</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">c</span> <span class="o">-</span> <span class="n">margin</span><span class="p">:</span><span class="n">c</span> <span class="o">+</span> <span class="n">margin</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">patchesData</span><span class="p">[</span><span class="n">patchIndex</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">patch</span>
+            <span class="n">patchesLabels</span><span class="p">[</span><span class="n">patchIndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">r</span> <span class="o">-</span> <span class="n">margin</span><span class="p">,</span> <span class="n">c</span> <span class="o">-</span> <span class="n">margin</span><span class="p">]</span>
+            <span class="n">patchIndex</span> <span class="o">=</span> <span class="n">patchIndex</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">patchesLabels</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;patchesData的形状：&#39;</span><span class="p">,</span> <span class="n">patchesData</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># (42776, 13, 13, 20)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;patchesLabels的形状：&#39;</span><span class="p">,</span> <span class="n">patchesLabels</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># (42776,)</span>
+<span class="n">bands</span> <span class="o">=</span> <span class="n">patchesData</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># 波段数</span>
+
+<span class="c1"># 定义随机分割数据函数</span>
+<span class="k">def</span> <span class="nf">split_data_threshold_random</span><span class="p">(</span><span class="n">pixels</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">,</span> <span class="n">train_percent</span><span class="p">,</span> <span class="n">rand_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">train_set_size</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 存储每类地物训练样本数</span>
+    <span class="k">for</span> <span class="n">cl</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+        <span class="n">pixels_cl</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pixels</span><span class="p">[</span><span class="n">labels</span> <span class="o">==</span> <span class="n">cl</span><span class="p">])</span>  <span class="c1"># 第i类地物样本总数</span>
+        <span class="c1"># pixels_cl = min(ceil(pixels_cl * 0.3), n_samples)  # 计算第i类 min(地物样本数*0.3,T)的数量</span>
+        <span class="k">if</span> <span class="n">pixels_cl</span> <span class="o">&lt;</span> <span class="n">n_samples</span><span class="p">:</span>
+            <span class="n">pixels_cl</span> <span class="o">=</span> <span class="n">ceil</span><span class="p">(</span><span class="n">pixels_cl</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pixels_cl</span> <span class="o">=</span> <span class="n">n_samples</span>
+        <span class="n">train_set_size</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pixels_cl</span><span class="p">)</span>  <span class="c1"># 存储每类地物的样本数</span>
+    <span class="n">pixels_number</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># 不同地物的全部样本数的集合</span>
+    <span class="n">tr_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">train_set_size</span><span class="p">))</span>
+    <span class="n">te_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">pixels_number</span><span class="p">))</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">train_set_size</span><span class="p">))</span>
+    <span class="n">sizetr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">tr_size</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">pixels</span><span class="o">.</span><span class="n">shape</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">sizete</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">te_size</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">pixels</span><span class="o">.</span><span class="n">shape</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">train_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">sizetr</span><span class="p">))</span>
+    <span class="n">train_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">tr_size</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">sizete</span><span class="p">))</span>
+    <span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">te_size</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">trcont</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">tecont</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="n">cl</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+        <span class="n">pixels_cl</span> <span class="o">=</span> <span class="n">pixels</span><span class="p">[</span><span class="n">labels</span> <span class="o">==</span> <span class="n">cl</span><span class="p">]</span>
+        <span class="n">labels_cl</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">labels</span> <span class="o">==</span> <span class="n">cl</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">pixels_cl</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels_cl</span><span class="p">)</span>  <span class="c1"># 用于判断一个表达式，在表达式条件为false时触发异常。</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">rand_state</span><span class="p">)</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pixels_cl</span><span class="p">))</span>  <span class="c1"># 随机生成长度为len(a)的序列</span>
+        <span class="n">pixels_cl</span> <span class="o">=</span> <span class="n">pixels_cl</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+        <span class="n">labels_cl</span> <span class="o">=</span> <span class="n">labels_cl</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">cont</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">pixels_cl</span><span class="p">,</span> <span class="n">labels_cl</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">cont</span> <span class="o">&lt;</span> <span class="n">train_set_size</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">cl</span><span class="p">)]:</span>
+                <span class="n">train_x</span><span class="p">[</span><span class="n">trcont</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">a</span>
+                <span class="n">train_y</span><span class="p">[</span><span class="n">trcont</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span>
+                <span class="n">trcont</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">X_test</span><span class="p">[</span><span class="n">tecont</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">a</span>
+                <span class="n">y_test</span><span class="p">[</span><span class="n">tecont</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span>
+                <span class="n">tecont</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">train_percent</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">train_y</span><span class="p">,</span>
+                                                    <span class="n">random_state</span><span class="o">=</span><span class="n">rand_state</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span>
+
+<span class="c1"># n_samples为每类的训练样本个数，train_percent是验证集占训练集+测试集总和比例，rand_state是随机种子</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">split_data_threshold_random</span><span class="p">(</span><span class="n">patchesData</span><span class="p">,</span> <span class="n">patchesLabels</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                                                                            <span class="n">train_percent</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">rand_state</span><span class="o">=</span><span class="mi">1014</span><span class="p">)</span>
+<span class="k">del</span> <span class="n">patchesData</span><span class="p">,</span> <span class="n">labels</span>  <span class="c1"># 删除不需要数据</span>
+
+<span class="c1"># 制作Pytorch所需数据集</span>
+<span class="k">class</span> <span class="nc">HyperData</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">transform</span><span class="p">):</span>
+        <span class="c1">#self.data = dataset[0].astype(np.float32)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">transform</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">+=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]))</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">img</span><span class="p">,</span> <span class="n">label</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__labels__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span>
+
+<span class="c1"># pytorch的输入数据维度(batch_size, input_channels, height, width)，所以要用np.transpose()</span>
+<span class="n">train_hyper</span> <span class="o">=</span> <span class="n">HyperData</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">),</span> <span class="n">y_train</span><span class="p">),</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">test_hyper</span> <span class="o">=</span> <span class="n">HyperData</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">),</span> <span class="n">y_test</span><span class="p">),</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">val_hyper</span> <span class="o">=</span> <span class="n">HyperData</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">),</span> <span class="n">y_val</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="c1"># 定义数据的的处理方式</span>
+<span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;num_workers&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;pin_memory&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+<span class="n">train_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">train_hyper</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="n">test_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">test_hyper</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="n">val_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">val_hyper</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">inputs</span><span class="p">,</span><span class="n">label</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;DataLoader中训练数据的形状：&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># torch.Size([64, 20, 13, 13])</span>
+    <span class="k">break</span>
+</pre></div>
+</div>
+</section>
+<section id="id13">
+<h3>脉冲网络模型<a class="headerlink" href="#id13" title="此标题的永久链接"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+
+
+<span class="k">class</span> <span class="nc">Surrogate_BP_Function</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">Function</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="c1"># ctx为上下文context，save_for_backward函数可以将函数的输入参数保存起来以便后面在求导时候再使用，用于后续的backward函数。</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="n">save_for_backward</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+        <span class="c1"># torch.gt(a,b)函数比较a中元素大于b中对应元素，大于则为1，不大于则为0，这里a为Tensor，b可以为与a的size相同的Tensor或常数。</span>
+        <span class="k">return</span> <span class="nb">input</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">):</span>
+        <span class="c1"># ctx.saved_tensors会返回forward函数内存储的输入参数</span>
+        <span class="nb">input</span><span class="p">,</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">saved_tensors</span>
+        <span class="n">grad_input</span> <span class="o">=</span> <span class="n">grad_output</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>  <span class="c1"># 默认为1</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="nb">input</span> <span class="o">*</span> <span class="nb">input</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mf">0.7</span>  <span class="c1"># 可能是论文公式(6)</span>
+        <span class="k">return</span> <span class="n">grad_input</span> <span class="o">*</span> <span class="n">temp</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">channel_shuffle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">groups</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="n">batch_size</span><span class="p">,</span> <span class="n">num_channels</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+    <span class="n">channels_per_group</span> <span class="o">=</span> <span class="n">num_channels</span> <span class="o">//</span> <span class="n">groups</span>  <span class="c1"># 取整除 - 返回商的整数部分，向下取整 9//2=4</span>
+    <span class="c1"># reshape</span>
+    <span class="c1"># [batch_size, num_channels, height, width] -&gt; [batch_size, groups, channels_per_group, height, width]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">channels_per_group</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+    <span class="c1"># flatten</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span>
+
+
+<span class="k">class</span> <span class="nc">TGRS</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">,</span> <span class="n">leak_mem</span><span class="p">,</span> <span class="n">img_size</span><span class="p">,</span> <span class="n">num_cls</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">):</span>
+
+        <span class="c1"># super关键字实现了对父类方法的改写(增加了功能，增加的功能写在子类中，父类方法中原来的功能得以保留)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TGRS</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span> <span class="o">=</span> <span class="n">img_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_cls</span> <span class="o">=</span> <span class="n">num_cls</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_steps</span> <span class="o">=</span> <span class="n">num_steps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spike_fn</span> <span class="o">=</span> <span class="n">Surrogate_BP_Function</span><span class="o">.</span><span class="n">apply</span>  <span class="c1"># 直接使用.apply()去完成前向运算过程</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span> <span class="o">=</span> <span class="n">leak_mem</span>
+
+        <span class="c1"># (&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; SNN Direct Coding For TGRS &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;)</span>
+
+        <span class="n">bias_flag</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias_flag</span><span class="p">)</span>
+
+        <span class="c1"># (&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch1_left &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;)</span>
+        <span class="c1"># self.branch1 = nn.Sequential(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias_flag</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias_flag</span><span class="p">)</span>
+        <span class="c1"># )</span>
+
+        <span class="c1"># (&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch1_right &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;)</span>
+        <span class="c1"># self.branch2 = nn.Sequential(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv4</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv5</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># )</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv6</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias_flag</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pool1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">AvgPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># (&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch2_left &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;)</span>
+        <span class="c1"># self.branch3 = nn.Sequential(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv7</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias_flag</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv8</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias_flag</span><span class="p">)</span>
+        <span class="c1"># )</span>
+
+        <span class="c1"># (&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch2_right &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;)</span>
+        <span class="c1"># self.branch4 = nn.Sequential(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv9</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv10</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># )</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv11</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias_flag</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pool2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">AvgPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_cls</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv3</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv4</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv5</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv6</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv7</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">conv8</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv9</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv10</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv11</span><span class="p">,</span> <span class="p">]</span>
+
+        <span class="c1"># 初始化所有层的阈值</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">modules</span><span class="p">():</span>  <span class="c1"># 返回创建的网络的所有层，见 https://zhuanlan.zhihu.com/p/238230258</span>
+            <span class="c1"># 判断是Conv层还是Linear层</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">):</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">threshold</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># 添加阈值属性</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">xavier_uniform_</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
+                                            <span class="n">gain</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># torch.nn.init模块中的所有函数都用于初始化神经网络参数，见https://blog.csdn.net/hy592070616/article/details/132382885</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">):</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">threshold</span> <span class="o">=</span> <span class="mf">1.0</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">xavier_uniform_</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">gain</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="n">batch_size</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># 初始化膜电位</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+        <span class="n">mem_conv1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">mem_conv2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">mem_conv3</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">mem_conv4</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">mem_conv5</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">mem_conv6</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">mem_conv7</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>  <span class="c1"># // 2因为池化</span>
+        <span class="n">mem_conv8</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">mem_conv9</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">mem_conv10</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">mem_conv11</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">mem_fc1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_cls</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="n">mem_conv_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">mem_conv1</span><span class="p">,</span> <span class="n">mem_conv2</span><span class="p">,</span> <span class="n">mem_conv3</span><span class="p">,</span> <span class="n">mem_conv4</span><span class="p">,</span> <span class="n">mem_conv5</span><span class="p">,</span> <span class="n">mem_conv6</span><span class="p">,</span> <span class="n">mem_conv7</span><span class="p">,</span> <span class="n">mem_conv8</span><span class="p">,</span>
+                        <span class="n">mem_conv9</span><span class="p">,</span> <span class="n">mem_conv10</span><span class="p">,</span> <span class="n">mem_conv11</span><span class="p">]</span>
+
+        <span class="n">static_input1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_steps</span><span class="p">):</span>  <span class="c1"># 遍历时间步</span>
+            <span class="c1"># 按照论文公式(2)更新膜电位</span>
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span> <span class="o">*</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span><span class="p">)</span> <span class="o">*</span> <span class="n">static_input1</span>  <span class="c1"># 总分支</span>
+            <span class="n">mem_thr</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spike_fn</span><span class="p">(</span><span class="n">mem_thr</span><span class="p">)</span>  <span class="c1"># 输出脉冲，调用Surrogate_BP_Function中的forward：大于0为1</span>
+            <span class="c1"># Soft reset</span>
+            <span class="n">rst</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>  <span class="c1"># 生成和括号内变量维度维度一致的全是零的内容</span>
+            <span class="n">rst</span><span class="p">[</span><span class="n">mem_thr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>  <span class="c1"># 输出脉冲的膜电位全部变为1</span>
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">rst</span>  <span class="c1"># 输出了脉冲的地方减掉一个阈值，其他地方不变</span>
+            <span class="n">out_prev</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+            <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">out_prev</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 按照第二个维度分成两份，x1 左分支  x2 右分支</span>
+
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span> <span class="o">*</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>  <span class="c1"># 左分支1.1</span>
+            <span class="n">mem_thr</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">x1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spike_fn</span><span class="p">(</span><span class="n">mem_thr</span><span class="p">)</span>
+            <span class="c1"># Soft reset</span>
+            <span class="n">rst</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">rst</span><span class="p">[</span><span class="n">mem_thr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">rst</span>
+            <span class="n">x1_prev</span> <span class="o">=</span> <span class="n">x1</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span> <span class="o">*</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv3</span><span class="p">(</span><span class="n">x1_prev</span><span class="p">)</span>  <span class="c1"># 左分支1.2</span>
+            <span class="n">mem_thr</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">out1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spike_fn</span><span class="p">(</span><span class="n">mem_thr</span><span class="p">)</span>
+            <span class="c1"># Soft reset</span>
+            <span class="n">rst</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">rst</span><span class="p">[</span><span class="n">mem_thr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">rst</span>
+            <span class="n">out1_prev</span> <span class="o">=</span> <span class="n">out1</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span> <span class="o">*</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv4</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>  <span class="c1"># 右分支1.1</span>
+            <span class="n">mem_thr</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">x2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spike_fn</span><span class="p">(</span><span class="n">mem_thr</span><span class="p">)</span>
+            <span class="c1"># Soft reset</span>
+            <span class="n">rst</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">rst</span><span class="p">[</span><span class="n">mem_thr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">rst</span>
+            <span class="n">x2_prev</span> <span class="o">=</span> <span class="n">x2</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span> <span class="o">*</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv5</span><span class="p">(</span><span class="n">x2_prev</span><span class="p">)</span>  <span class="c1"># 右分支1.2</span>
+            <span class="n">mem_thr</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">out2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spike_fn</span><span class="p">(</span><span class="n">mem_thr</span><span class="p">)</span>
+            <span class="c1"># Soft reset</span>
+            <span class="n">rst</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">rst</span><span class="p">[</span><span class="n">mem_thr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">-</span> <span class="n">rst</span>
+            <span class="n">out2_prev</span> <span class="o">=</span> <span class="n">out2</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+            <span class="c1"># 将两个tensor按指定维度拼接在一起</span>
+            <span class="n">out_prev</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">out1_prev</span><span class="p">,</span> <span class="n">out2_prev</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 分支汇总</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">channel_shuffle</span><span class="p">(</span><span class="n">out_prev</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 通道打乱</span>
+
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span> <span class="o">*</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv6</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>  <span class="c1"># 总分支</span>
+            <span class="n">mem_thr</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spike_fn</span><span class="p">(</span><span class="n">mem_thr</span><span class="p">)</span>
+            <span class="c1"># Soft reset</span>
+            <span class="n">rst</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">rst</span><span class="p">[</span><span class="n">mem_thr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">-</span> <span class="n">rst</span>
+            <span class="n">out_prev</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+            <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool1</span><span class="p">(</span><span class="n">out_prev</span><span class="p">)</span>  <span class="c1"># 池化层1，pool完不一定是1吧？</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+            <span class="n">x3</span><span class="p">,</span> <span class="n">x4</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># x3 左分支  x4 右分支</span>
+
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span> <span class="o">*</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv7</span><span class="p">(</span><span class="n">x3</span><span class="p">)</span>  <span class="c1"># 左分支2.1</span>
+            <span class="n">mem_thr</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">x3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spike_fn</span><span class="p">(</span><span class="n">mem_thr</span><span class="p">)</span>
+            <span class="c1"># Soft reset</span>
+            <span class="n">rst</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">rst</span><span class="p">[</span><span class="n">mem_thr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">-</span> <span class="n">rst</span>
+            <span class="n">x3_prev</span> <span class="o">=</span> <span class="n">x3</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span> <span class="o">*</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv8</span><span class="p">(</span><span class="n">x3_prev</span><span class="p">)</span>  <span class="c1"># 左分支2.2</span>
+            <span class="n">mem_thr</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">out1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spike_fn</span><span class="p">(</span><span class="n">mem_thr</span><span class="p">)</span>
+            <span class="c1"># Soft reset</span>
+            <span class="n">rst</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">rst</span><span class="p">[</span><span class="n">mem_thr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">-</span> <span class="n">rst</span>
+            <span class="n">out1_prev</span> <span class="o">=</span> <span class="n">out1</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span> <span class="o">*</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv9</span><span class="p">(</span><span class="n">x4</span><span class="p">)</span>  <span class="c1"># 右分支2.1</span>
+            <span class="n">mem_thr</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">x4</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spike_fn</span><span class="p">(</span><span class="n">mem_thr</span><span class="p">)</span>
+            <span class="c1"># Soft reset</span>
+            <span class="n">rst</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">rst</span><span class="p">[</span><span class="n">mem_thr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">-</span> <span class="n">rst</span>
+            <span class="n">x4_prev</span> <span class="o">=</span> <span class="n">x4</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span> <span class="o">*</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv10</span><span class="p">(</span><span class="n">x4_prev</span><span class="p">)</span>  <span class="c1"># 左分支2.2</span>
+            <span class="n">mem_thr</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">out2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spike_fn</span><span class="p">(</span><span class="n">mem_thr</span><span class="p">)</span>
+            <span class="c1"># Soft reset</span>
+            <span class="n">rst</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">rst</span><span class="p">[</span><span class="n">mem_thr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">-</span> <span class="n">rst</span>
+            <span class="n">out2_prev</span> <span class="o">=</span> <span class="n">out2</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+            <span class="n">out_prev</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">out1_prev</span><span class="p">,</span> <span class="n">out2_prev</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 分支汇总</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">channel_shuffle</span><span class="p">(</span><span class="n">out_prev</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span> <span class="o">*</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">leak_mem</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv11</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>  <span class="c1"># 总分支</span>
+            <span class="n">mem_thr</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spike_fn</span><span class="p">(</span><span class="n">mem_thr</span><span class="p">)</span>
+            <span class="c1"># Soft reset</span>
+            <span class="n">rst</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">rst</span><span class="p">[</span><span class="n">mem_thr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_list</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">.</span><span class="n">threshold</span>
+            <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="n">mem_conv_list</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">-</span> <span class="n">rst</span>
+            <span class="n">out_prev</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+            <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool2</span><span class="p">(</span><span class="n">out_prev</span><span class="p">)</span>  <span class="c1"># 池化层2</span>
+            <span class="n">out_prev</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+            <span class="n">out_prev</span> <span class="o">=</span> <span class="n">out_prev</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">mem_fc1</span> <span class="o">=</span> <span class="n">mem_fc1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">out_prev</span><span class="p">)</span>
+
+        <span class="n">out_voltage</span> <span class="o">=</span> <span class="n">mem_fc1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_steps</span>
+
+        <span class="k">return</span> <span class="n">out_voltage</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="python">
+<h2>三、使用Python无框架复现<a class="headerlink" href="#python" title="此标题的永久链接"></a></h2>
+</section>
+<section id="c">
+<h2>四、使用C#复现<a class="headerlink" href="#c" title="此标题的永久链接"></a></h2>
+</section>
+<section id="id14">
+<h2>五、硬件电路实现<a class="headerlink" href="#id14" title="此标题的永久链接"></a></h2>
+</section>
+<section id="id15">
+<h2>参考资料<a class="headerlink" href="#id15" title="此标题的永久链接"></a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://blog.csdn.net/Chaolei3/article/details/79672162">数字图像的类型——伪彩色，真彩色，假彩色</a></p></li>
+<li><p><a class="reference external" href="https://zhuanlan.zhihu.com/p/485493143">【科普】关于卫星遥感的分辨率及图像的那点事！</a></p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../about.html" class="btn btn-neutral float-left" title="关于" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2024, YU SHI.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

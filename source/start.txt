@@ -1,0 +1,3 @@
+在终端依次运行：
+conda activate CH4
+sphinx-autobuild source build/html

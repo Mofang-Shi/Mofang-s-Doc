@@ -1,0 +1,5 @@
+(TGRS, 2022) 遥感图像处理
+======================================
+
+论文题目:
+ `Hyperspectral Image Classification of Brain-Inspired Spiking Neural Network Based on Approximate Derivative Algorithm\ <https://www.researchgate.net/publication/363602706_Hyperspectral_Image_Classification_of_Brain-Inspired_Spiking_Neural_Network_Based_on_Approximate_Derivative_Algorithm>`_

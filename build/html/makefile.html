@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Makefile基础 &mdash; Mofang&#39;s Docs v0.0 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="关于此文档" href="about.html" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Mofang's Docs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">关于</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reStructureText%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8.html">reStructureText语法入门</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mofang's Docs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Makefile基础</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/makefile.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="makefile">
+<h1>Makefile基础<a class="headerlink" href="#makefile" title="此标题的永久链接"></a></h1>
+<section id="id1">
+<h2>介绍<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h2>
+<p>本教程来自<code class="docutils literal notranslate"><span class="pre">UCB</span> <span class="pre">EECS151</span> <span class="pre">ASIC</span> <span class="pre">Lab1</span></code>推荐阅读的教程：<a class="reference external" href="https://cs.colby.edu/maxwell/courses/tutorials/maketutor/">A Simple Makefile Tutorial</a></p>
+<p>额外的阅读资料（个人觉得读这个更好）：<a class="reference external" href="https://blog.csdn.net/weixin_38391755/article/details/80380786">Makefile教程</a></p>
+</section>
+<section id="lab1">
+<h2>一个示例（来自<code class="docutils literal notranslate"><span class="pre">Lab1</span></code>）<a class="headerlink" href="#lab1" title="此标题的永久链接"></a></h2>
+<p>让我们看看一个简单的makefile，来解释一些关于它们如何工作的事情。如果您查看某的文本编辑器中提供的文件夹中的<code class="docutils literal notranslate"><span class="pre">Makefile</span></code>，您可以看到以下行：</p>
+<div class="highlight-Makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">output_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>force_regs.random.ucli
+
+<span class="nf">$(output_name)</span><span class="o">:</span><span class="w"> </span><span class="n">force_regs</span>.<span class="n">ucli</span>
+<span class="w">    </span>awk<span class="w"> </span><span class="s1">&#39;BEGIN{srand();}{if ($$1 != &quot;&quot;) { print $$1,$$2,$$3,int(rand()*2)}}&#39;</span><span class="w"> </span>$&lt;<span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$@</span>
+
+<span class="nf">clean</span><span class="o">:</span>
+<span class="w">    </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="k">$(</span>output_name<span class="k">)</span>
+</pre></div>
+</div>
+<p>虽然这可能看起来像很多随机字符，但让我们浏览一下它的每个部分，真的没有那么复杂。</p>
+<p>Makefile通常由规则（rules）组成，这些规则告诉<code class="docutils literal notranslate"><span class="pre">Make</span></code>如何执行一组命令，从一组依赖项（dependencies）构建一组目标（targets）。规则通常具有以下结构：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">targets</span><span class="p">:</span> <span class="n">dependencies</span>
+    <span class="n">commands</span>
+</pre></div>
+</div>
+<p><strong>Makefiles中的缩进是制表符<code class="docutils literal notranslate"><span class="pre">Tab</span></code>，而不是空格，这一点非常重要</strong>。</p>
+<p>上述Makefile中的两条规则具有干净和输出名称的目标。在这里，输出名称是Makefile中变量的名称，这意味着它可以从命令行覆盖（overwritten）。这可以通过以下命令完成：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span><span class="nv">output_name</span><span class="o">=</span>foo.txt
+</pre></div>
+</div>
+<p>这将导致输出写入<code class="docutils literal notranslate"><span class="pre">foo.txt</span></code>文件中。</p>
+<p>通常，每当其依赖项更新于其自身目标时，规则都会运行，因此通过编辑/更新<code class="docutils literal notranslate"><span class="pre">foo.txt</span></code>文件（包括通过触摸命令，touch command），可以重新生成输出名称目标。这与<code class="docutils literal notranslate"><span class="pre">bash</span></code>脚本不同。</p>
+<p>在输出名称目标中，<code class="docutils literal notranslate"><span class="pre">awk</span></code>命令有一堆<code class="docutils literal notranslate"><span class="pre">$</span></code>字符。这是因为在正常的<code class="docutils literal notranslate"><span class="pre">awk</span></code>中，变量名是<code class="docutils literal notranslate"><span class="pre">1$</span></code>，<code class="docutils literal notranslate"><span class="pre">2$</span></code>，然后在makefile中，你必须转义这些变量名才能让它们正常工作。在<code class="docutils literal notranslate"><span class="pre">Make</span></code>中，转义使用<code class="docutils literal notranslate"><span class="pre">$</span></code>而不是<code class="docutils literal notranslate"><span class="pre">\</span></code>。</p>
+<p>awk脚本之后的其他字符也是要制作的特殊字符。<code class="docutils literal notranslate"><span class="pre">$&lt;</span></code>是该目标的第一个依赖项，<code class="docutils literal notranslate"><span class="pre">&gt;</span></code>只是重定向<code class="docutils literal notranslate"><span class="pre">awk</span></code>的输出，<code class="docutils literal notranslate"><span class="pre">$&#64;</span></code>是目标本身的名称。这允许用户创建可重用的文件，因为您正在依赖项上操作，并将结果输出到您自己的目标名称中。</p>
+</section>
+<section id="id2">
+<h2>一个简单的Makefile教程（来自推荐阅读）<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
+<p>Makefiles是组织代码编译（code compilation）的简单方法。本教程甚至没有触及使用make的可能性，而是作为入门指南，以便可以快速轻松地为中小型项目创建自己的makefile。</p>
+<section id="id3">
+<h3>一个简单的例子<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
+<p>让我们从以下三个文件开始，<code class="docutils literal notranslate"><span class="pre">hellomake.c</span></code>、<code class="docutils literal notranslate"><span class="pre">hellofunc.c</span></code>和<code class="docutils literal notranslate"><span class="pre">hellomake.h</span></code>（C语言头文件），它们将分别代表一个典型的<strong>主程序</strong>、一个单独文件中的<strong>一些功能代码</strong>和一个<strong>包含文件</strong>。</p>
+<p><code class="docutils literal notranslate"><span class="pre">hellomake.c</span></code></p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;hellomake.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// call a function in another file</span>
+<span class="w">  </span><span class="n">myPrintHelloMake</span><span class="p">();</span>
+
+<span class="w">  </span><span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">hellofunc.c</span></code></p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;hellomake.h&gt;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">myPrintHelloMake</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello makefiles!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">hellomake.h</span></code></p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm">example include file</span>
+<span class="cm">*/</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">myPrintHelloMake</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>通常，将通过执行以下命令来编译此代码集合：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-o<span class="w"> </span>hellomake<span class="w"> </span>hellomake.c<span class="w"> </span>hellofunc.c<span class="w"> </span>-I.
+</pre></div>
+</div>
+<p>这里编译了两个<code class="docutils literal notranslate"><span class="pre">.c</span></code>文件<code class="docutils literal notranslate"><span class="pre">hellomake.c</span></code>、<code class="docutils literal notranslate"><span class="pre">hellofunc.c</span></code>，并命名了可执行文件<code class="docutils literal notranslate"><span class="pre">hellomake</span></code>。<code class="docutils literal notranslate"><span class="pre">-I.</span></code>的作用是以便<code class="docutils literal notranslate"><span class="pre">gcc</span></code>在当前目录（.）中查找包含的头文件<code class="docutils literal notranslate"><span class="pre">hellomake.h</span></code>。</p>
+<p>如果没有makefile，测试/修改/调试周期（test/modify/debug cycle）的典型方法是使用终端中的向上箭头返回到上一个编译命令，这样您就不必每次都键入它，特别是当在混合了几个<code class="docutils literal notranslate"><span class="pre">.c</span></code>文件后。</p>
+<p>不幸的是，这种编译方法有两个缺点。首先，如果您丢失了编译命令或切换计算机，您必须从头开始重新键入它。其次，如果您只对一个<code class="docutils literal notranslate"><span class="pre">.c</span></code>文件进行更改，那么每次重新编译它们也是耗时且低效的。</p>
+<p>此时就能用makefile做什么了！可以创建的最简单的makefile例如：</p>
+<p><strong>Makefile1</strong></p>
+<div class="highlight-Makefile notranslate"><div class="highlight"><pre><span></span><span class="nf">hellomake</span><span class="o">:</span><span class="w"> </span><span class="n">hellomake</span>.<span class="n">c</span> <span class="n">hellofunc</span>.<span class="n">c</span>
+<span class="w">     </span>gcc<span class="w"> </span>-o<span class="w"> </span>hellomake<span class="w"> </span>hellomake.c<span class="w"> </span>hellofunc.c<span class="w"> </span>-I.
+</pre></div>
+</div>
+<p>如果您将此规则放入名为<code class="docutils literal notranslate"><span class="pre">Makefile</span></code>或<code class="docutils literal notranslate"><span class="pre">makefile</span></code>的文件中，然后在命令行上键入<code class="docutils literal notranslate"><span class="pre">make</span></code>，它将执行编译命令，就像您在<code class="docutils literal notranslate"><span class="pre">makefile</span></code>中写入的那样。</p>
+<p>请注意，<code class="docutils literal notranslate"><span class="pre">make</span></code>没有参数（arguments ）会执行文件中的第一条规则。此外，通过<code class="docutils literal notranslate"><span class="pre">:</span></code>后第一行的文件列表，<code class="docutils literal notranslate"><span class="pre">make</span></code>知道如果这些文件中的任何一个发生变化，则需要执行<code class="docutils literal notranslate"><span class="pre">hellomake</span></code>规则。</p>
+<p>需要注意的一件非常重要的事情是，在makefile中的gcc命令之前有一个<code class="docutils literal notranslate"><span class="pre">Tab</span></code>，任何命令的开头都必须有一个<code class="docutils literal notranslate"><span class="pre">Tab</span></code>。</p>
+<p>如此，我们已经解决了重复使用向上箭头的问题。然而，该系统在汇编最新更改方面仍然没有效率。</p>
+<p><strong>Makefile2</strong></p>
+<div class="highlight-Makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">CC</span><span class="o">=</span>gcc
+<span class="nv">CFLAGS</span><span class="o">=</span>-I.
+
+<span class="nf">hellomake</span><span class="o">:</span><span class="w"> </span><span class="n">hellomake</span>.<span class="n">o</span> <span class="n">hellofunc</span>.<span class="n">o</span>
+<span class="w">     </span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span>hellomake<span class="w"> </span>hellomake.o<span class="w"> </span>hellofunc.o
+</pre></div>
+</div>
+<p>现在我们定义了一些常数<code class="docutils literal notranslate"><span class="pre">CC</span></code>和<code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code>。<code class="docutils literal notranslate"><span class="pre">宏CC</span></code>（macro CC）是使用的C编译器，<code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code>是传递给编译命令的标志列表。</p>
+<p>通过将对象文件<code class="docutils literal notranslate"><span class="pre">hellomake.o</span></code>和<code class="docutils literal notranslate"><span class="pre">hellofunc.o</span></code>放在依赖列表和规则（dependency list and in the rule）中，<code class="docutils literal notranslate"><span class="pre">make</span></code>知道它必须首先单独编译<code class="docutils literal notranslate"><span class="pre">.c</span></code>版本，然后构建可执行的<code class="docutils literal notranslate"><span class="pre">hellomake</span></code>。</p>
+<p>补充一下关于gcc的知识，gcc编译C源码有四个步骤：</p>
+<ul class="simple">
+<li><p>源文件<code class="docutils literal notranslate"><span class="pre">.c</span></code>和头文件<code class="docutils literal notranslate"><span class="pre">.h</span></code>的<strong>预处理</strong></p></li>
+<li><p>处理源文件<code class="docutils literal notranslate"><span class="pre">.i</span></code>的<strong>编译</strong></p></li>
+<li><p>汇编源文件<code class="docutils literal notranslate"><span class="pre">.s</span></code>的<strong>汇编</strong></p></li>
+<li><p>目标文件<code class="docutils literal notranslate"><span class="pre">.o</span></code>的<strong>链接</strong></p></li>
+<li><p>生成可执行文件</p></li>
+</ul>
+<p>对于大多数小规模项目来说，使用这种形式的makefile就足够了。但是如果要更改<code class="docutils literal notranslate"><span class="pre">hellomake.h</span></code>，make不会重新编译<code class="docutils literal notranslate"><span class="pre">.c</span></code>文件，即使它们需要重新编译。</p>
+<p>为了解决这个问题，我们需要告诉<code class="docutils literal notranslate"><span class="pre">make</span></code>所有<code class="docutils literal notranslate"><span class="pre">.c</span></code>文件都依赖于某些<code class="docutils literal notranslate"><span class="pre">.h</span></code>文件。我们可以通过编写一个简单的规则(rules)并将其添加到makefile来做到这一点。</p>
+<p><strong>Makefile3</strong></p>
+<div class="highlight-Makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">CC</span><span class="o">=</span>gcc
+<span class="nv">CFLAGS</span><span class="o">=</span>-I.
+<span class="nv">DEPS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>hellomake.h
+
+<span class="nf">%.o</span><span class="o">:</span><span class="w"> </span>%.<span class="n">c</span> <span class="k">$(</span><span class="nv">DEPS</span><span class="k">)</span>
+<span class="w">    </span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span><span class="w"> </span>$&lt;<span class="w"> </span><span class="k">$(</span>CFLAGS<span class="k">)</span>
+
+<span class="nf">hellomake</span><span class="o">:</span><span class="w"> </span><span class="n">hellomake</span>.<span class="n">o</span> <span class="n">hellofunc</span>.<span class="n">o</span> 
+<span class="w">    </span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span>hellomake<span class="w"> </span>hellomake.o<span class="w"> </span>hellofunc.o<span class="w"> </span>
+</pre></div>
+</div>
+<p>首先创建<code class="docutils literal notranslate"><span class="pre">宏DEPS</span></code>，这是<code class="docutils literal notranslate"><span class="pre">.c</span></code>文件所依赖的<code class="docutils literal notranslate"><span class="pre">.h</span></code>文件集。然后，我们定义了一个适用于所有以<code class="docutils literal notranslate"><span class="pre">.o</span></code>后缀结尾的文件的规则。</p>
+<p>该规则规定，<code class="docutils literal notranslate"><span class="pre">.o</span></code>文件取决于文件的<code class="docutils literal notranslate"><span class="pre">.c</span></code>版本和<code class="docutils literal notranslate"><span class="pre">DEPS宏</span></code>中包含的<code class="docutils literal notranslate"><span class="pre">.h</span></code>文件。然后，要生成<code class="docutils literal notranslate"><span class="pre">.o</span></code>文件，需要使用<code class="docutils literal notranslate"><span class="pre">CC宏</span></code>中定义的编译器编译<code class="docutils literal notranslate"><span class="pre">.c</span></code>文件。<code class="docutils literal notranslate"><span class="pre">-C</span></code>标志表示生成对象文件（object file），<code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">$&#64;</span></code>表示将编译的输出放在<code class="docutils literal notranslate"><span class="pre">：</span></code>左侧命名的文件中（<code class="docutils literal notranslate"><span class="pre">%.o</span></code>），<code class="docutils literal notranslate"><span class="pre">$&lt;</span></code>是依赖项列表中的第一个项目（<code class="docutils literal notranslate"><span class="pre">%.c</span></code>），<code class="docutils literal notranslate"><span class="pre">CFLAGS宏</span></code>定义如上例。</p>
+<p><strong>Makefile4</strong></p>
+<div class="highlight-Makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">CC</span><span class="o">=</span>gcc
+<span class="nv">CFLAGS</span><span class="o">=</span>-I.
+<span class="nv">DEPS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>hellomake.h
+<span class="nv">OBJ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>hellomake.o<span class="w"> </span>hellofunc.o<span class="w"> </span>
+
+<span class="nf">%.o</span><span class="o">:</span><span class="w"> </span>%.<span class="n">c</span> <span class="k">$(</span><span class="nv">DEPS</span><span class="k">)</span>
+<span class="w">    </span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span><span class="w"> </span>$&lt;<span class="w"> </span><span class="k">$(</span>CFLAGS<span class="k">)</span>
+
+<span class="nf">hellomake</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">OBJ</span><span class="k">)</span>
+<span class="w">    </span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span><span class="w"> </span>$^<span class="w"> </span><span class="k">$(</span>CFLAGS<span class="k">)</span>
+</pre></div>
+</div>
+<p>作为最后的简化，让我们使用特殊的宏<code class="docutils literal notranslate"><span class="pre">$&#64;</span></code>和<code class="docutils literal notranslate"><span class="pre">$^</span></code>，它们分别在<code class="docutils literal notranslate"><span class="pre">:</span></code>的左右两侧，以使整体编译规则更加通用。在上面的示例中，所有包含文件<code class="docutils literal notranslate"><span class="pre">.h</span></code>都应列为<code class="docutils literal notranslate"><span class="pre">宏DEPS</span></code>的一部分，所有对象文件<code class="docutils literal notranslate"><span class="pre">.o</span></code>都应列为<code class="docutils literal notranslate"><span class="pre">宏OBJ</span></code>的一部分。</p>
+<p>如果在开始将我们的<code class="docutils literal notranslate"><span class="pre">.h</span></code>文件放在<code class="docutils literal notranslate"><span class="pre">/include</span></code>中，将我们的源代码（ source code）放在<code class="docutils literal notranslate"><span class="pre">src</span></code>目录中，并将一些本地库（local libraries）放在<code class="docutils literal notranslate"><span class="pre">lib</span></code>目录中呢，并隐藏<code class="docutils literal notranslate"><span class="pre">.o</span></code>文件，如下所示：</p>
+<p><strong>Makefile5</strong></p>
+<div class="highlight-Makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">IDIR</span><span class="w"> </span><span class="o">=</span>../include
+<span class="nv">CC</span><span class="o">=</span>gcc
+<span class="nv">CFLAGS</span><span class="o">=</span>-I<span class="k">$(</span>IDIR<span class="k">)</span>
+
+<span class="nv">ODIR</span><span class="o">=</span>obj
+<span class="nv">LDIR</span><span class="w"> </span><span class="o">=</span>../lib
+
+<span class="nv">LIBS</span><span class="o">=</span>-lm
+
+<span class="nv">_DEPS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>hellomake.h
+<span class="nv">DEPS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>patsubst<span class="w"> </span>%,<span class="k">$(</span>IDIR<span class="k">)</span>/%,<span class="k">$(</span>_DEPS<span class="k">))</span>
+
+<span class="nv">_OBJ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>hellomake.o<span class="w"> </span>hellofunc.o<span class="w"> </span>
+<span class="nv">OBJ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>patsubst<span class="w"> </span>%,<span class="k">$(</span>ODIR<span class="k">)</span>/%,<span class="k">$(</span>_OBJ<span class="k">))</span>
+
+
+<span class="nf">$(ODIR)/%.o</span><span class="o">:</span><span class="w"> </span>%.<span class="n">c</span> <span class="k">$(</span><span class="nv">DEPS</span><span class="k">)</span>
+<span class="w">    </span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span><span class="w"> </span>$&lt;<span class="w"> </span><span class="k">$(</span>CFLAGS<span class="k">)</span>
+
+<span class="nf">hellomake</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">OBJ</span><span class="k">)</span>
+<span class="w">    </span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span><span class="w"> </span>$^<span class="w"> </span><span class="k">$(</span>CFLAGS<span class="k">)</span><span class="w"> </span><span class="k">$(</span>LIBS<span class="k">)</span>
+
+<span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">clean</span>
+
+<span class="nf">clean</span><span class="o">:</span>
+<span class="w">    </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="k">$(</span>ODIR<span class="k">)</span>/*.o<span class="w"> </span>*~<span class="w"> </span>core<span class="w"> </span><span class="k">$(</span>INCDIR<span class="k">)</span>/*~<span class="w"> </span>
+</pre></div>
+</div>
+<p>以上makefile定义了<code class="docutils literal notranslate"><span class="pre">include</span></code>和<code class="docutils literal notranslate"><span class="pre">lib</span></code>目录的路径，并将对象文件<code class="docutils literal notranslate"><span class="pre">.o</span></code>放置在<code class="docutils literal notranslate"><span class="pre">src</span></code>目录中的<code class="docutils literal notranslate"><span class="pre">obj</span></code>子目录中。它还为您想要包含的任何库定义了一个宏，例如数学库<code class="docutils literal notranslate"><span class="pre">-lm</span></code>。此makefile应位于<code class="docutils literal notranslate"><span class="pre">src</span></code>目录中。</p>
+<p>请注意，如果您键入<code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code>，它还包含一个清理源和对象目录的规则。<code class="docutils literal notranslate"><span class="pre">.PHONY</span></code>规则阻止<code class="docutils literal notranslate"><span class="pre">make</span></code>使用名为<code class="docutils literal notranslate"><span class="pre">clean</span></code>的文件。</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2023, YU SHI.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

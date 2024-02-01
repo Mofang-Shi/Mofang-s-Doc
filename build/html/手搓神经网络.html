@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python手搓神经网络 &mdash; Mofang&#39;s Docs v0.0 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="关于此文档" href="about.html" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="Vim编辑器基础教程" href="Vim%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Mofang's Docs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">关于</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reStructureText%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8.html">reStructureText语法入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="git%E4%B8%8Egh%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">git&amp;gh教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">Linux基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Makefile%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">Makefile基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">正则表达式教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vim%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B.html">Vim编辑器基础教程</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python手搓神经网络</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">一、输入的正向传播</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">1、网络输入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2、正向传播</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">二、误差的反向传播</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">三、误差函数的选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">四、使误差函数的值最小化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">五、准备数据</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">1、输入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">2、输出</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">3、随机初始权重</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">六、使用Python实现神经网络</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id12">1、初始化函数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">2、查询（正向传播）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">3、训练（误差反向传播）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#minist">4、实例：MINIST数据集</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mofang's Docs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Python手搓神经网络</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/手搓神经网络.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="python">
+<h1>Python手搓神经网络<a class="headerlink" href="#python" title="此标题的永久链接"></a></h1>
+<p>一个最普通的神经网络搭建大致可以分为以下几个部分：</p>
+<p>一、输入的正向传播</p>
+<p>二、误差的反向传播</p>
+<p>三、误差函数的选择</p>
+<p>四、使误差函数的值最小化</p>
+<p>五、准备数据</p>
+<section id="id1">
+<h2>一、输入的正向传播<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h2>
+<section id="id2">
+<h3>1、网络输入<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h3>
+<p>在实际中，网络输入的数据种类繁多。按照维度主要有一维、二维（灰度图）、三维（RGB图片）。
+同时为了充分利用计算机性能，每次进入网络训练的数据不止一组，而是一<strong>批</strong>（batch）。</p>
+</section>
+<section id="id3">
+<h3>2、正向传播<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
+<p>单个神经元向前传播的原理如下：</p>
+<a class="reference internal image-reference" href="_images/neural.png"><img alt="_images/neural.png" class="align-center" src="_images/neural.png" style="width: 642.0px; height: 283.0px;" /></a>
+</section>
+</section>
+<section id="id4">
+<h2>二、误差的反向传播<a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
+<a class="reference internal image-reference" href="_images/error.png"><img alt="_images/error.png" class="align-center" src="_images/error.png" style="width: 721.0px; height: 353.0px;" /></a>
+</section>
+<section id="id5">
+<h2>三、误差函数的选择<a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
+<p>神经网络的输出是一个极其复杂困难的函数，这个函数具有许多参数影响到其输出的链接权重。
+神经网络本身的输出函数不是一个误差函数。但由于误差是目标训练值与实际输出值之间的差值，
+因此我们可以很容易地把输出函数变成误差函数。</p>
+<p>误差函数的选择有很多，最简单的三种包括：<span class="math notranslate nohighlight">\(目标值-实际值\)</span>、<span class="math notranslate nohighlight">\(|目标值-实际值|\)</span>、
+<span class="math notranslate nohighlight">\({|目标值-实际值|}^{2}\)</span></p>
+</section>
+<section id="id6">
+<h2>四、使误差函数的值最小化<a class="headerlink" href="#id6" title="此标题的永久链接"></a></h2>
+<p>定义误差函数的梯度：</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial E}{\partial {\omega}_{j,k}}\]</div>
+<p>选择平方误差，则：</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial E}{\partial {\omega}_{j,k}}=\frac{\partial}{\partial {\omega}_{j,k}}\sum_n{(t_n-o_n)}^2\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(n\)</span> 表示输出节点个数， <span class="math notranslate nohighlight">\(t_n\)</span> 表示目标输出值， <span class="math notranslate nohighlight">\(o_n\)</span> 表示实际输出值。</p>
+<p>注意，在节点 <span class="math notranslate nohighlight">\(n\)</span> 的输出 <span class="math notranslate nohighlight">\(o\)</span> ，只取决于连接到这个节点的链接，
+因此我们可以直接简化这个表达式。这意味着，由于这些权重是链接到节点 <span class="math notranslate nohighlight">\(k\)</span> 的权重，
+因此节点 <span class="math notranslate nohighlight">\(k\)</span> 的输出 <span class="math notranslate nohighlight">\(o_k\)</span> 只取决于权重 <span class="math notranslate nohighlight">\({\omega}_{j,k}\)</span> 。
+换句话说，节点 <span class="math notranslate nohighlight">\(k\)</span> 的输出不依赖于权重 <span class="math notranslate nohighlight">\({\omega}_{j,b}\)</span> ，
+由于 <span class="math notranslate nohighlight">\(b\)</span> 和 <span class="math notranslate nohighlight">\(k\)</span> 之间没有链接，因此 <span class="math notranslate nohighlight">\(b\)</span> 和 <span class="math notranslate nohighlight">\(k\)</span> 无关联。
+权重 <span class="math notranslate nohighlight">\({\omega}_{j,b}\)</span> 是连接输出节点b的链接权重，而不是输出节点k的链接权重。
+这意味着，除了权重 <span class="math notranslate nohighlight">\({\omega}_{j,k}\)</span> 所链接的节点（也就是 <span class="math notranslate nohighlight">\(o_k\)</span> ）外，
+我们可以从和中删除所有的 <span class="math notranslate nohighlight">\(o_n\)</span> ，得到：</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial E}{\partial {\omega}_{j,k}}=\frac{\partial}{\partial {\omega}_{j,k}}{(t_k-o_k)}^2\]</div>
+<p>根据链式法则，又有：</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial E}{\partial {\omega}_{j,k}}=\frac{\partial E}{\partial o_k}
+\times\frac{\partial o_k}{\partial {\omega}_{j,k}}
+=-2(t_k-o_k)\times\frac{\partial o_k}{\partial {\omega}_{j,k}}\]</div>
+<p>针对第二项，如果选择sigmoid激活函数，则：</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial o_k}{\partial {\omega}_{j,k}}
+=\frac{\partial}{\partial {\omega}_{j,k}}sigmoid(\sum_j{\omega}_{j,k}\times o_j)\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(o_j\)</span> 是前一层的输出，则：</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial E}{\partial {\omega}_{j,k}}\]</div>
+<div class="math notranslate nohighlight">
+\[=-2(t_k-o_k)\times sigmoid(\sum_j{\omega}_{j,k}\times o_j)
+ \times (1-sigmoid(\sum_j{\omega}_{j,k}\times o_j))
+ \times \frac{\partial}{\partial {\omega}_{j,k}}(\sum_j{\omega}_{j,k}\times o_j))\]</div>
+<p><span class="math notranslate nohighlight">\(\sum_j{\omega}_{j,k}\times o_j\)</span> 即为 <span class="math notranslate nohighlight">\(o_k\)</span> ,最后一项很容易得到结果为 <span class="math notranslate nohighlight">\(o_j\)</span> ，因此上式化简为：</p>
+<div class="math notranslate nohighlight">
+\[=-2(t_k-o_k)\times sigmoid(o_k)
+ \times (1-sigmoid(o_k))
+ \times o_j\]</div>
+<p>权重改变的方向与梯度相反（斜率为负说明需要增加权重的值），因此得到权重更新的公式：</p>
+<div class="math notranslate nohighlight">
+\[{\omega}_{j,k}^{new} = {\omega}_{j,k}^{old} - \alpha \times \frac{\partial E}{\partial {\omega}_{j,k}}\]</div>
+</section>
+<section id="id7">
+<h2>五、准备数据<a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
+<section id="id8">
+<h3>1、输入<a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
+<p>以sigmoid函数为例，可以发现如果输入变大，激活函数将会变得非常平坦。</p>
+<a class="reference internal image-reference" href="_images/sigmoid.png"><img alt="_images/sigmoid.png" class="align-center" src="_images/sigmoid.png" style="width: 486.0px; height: 325.0px;" /></a>
+<p>由于我们使用梯度学习新的权重，因此一个平坦的激活函数会出问题。
+权重的改变取决于激活函数的梯度，小梯度意味着限制神经网络学习的能力，
+这就是所谓的<strong>饱和神经网络</strong>。这告诉我们应该尽量保持小的输入。</p>
+<p>同时，我们也不应该让输入信号太小。当计算机处理非常小或非常大的数字时，可能会丧失精度，
+因此，使用非常小的值也会出现问题。
+一个好的建议是重新调整输入值，将其范围控制在0.0到1.0。输入0会将 <span class="math notranslate nohighlight">\(o_j\)</span>
+设置为0，这样权重更新表达式就会等于0，从而造成学习能力的丧失，
+因此在某些情况下可以将此输入加上一个小小的偏移，如0.01，避免输入0带来麻烦。</p>
+</section>
+<section id="id9">
+<h3>2、输出<a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
+<p>神经网络的输出是最后一层节点输出的信号。
+<strong>如果我们使用的激活函数不能生成大于1的值，那么尝试将训练目标值设置为比较大的值就有点愚蠢了。</strong>
+如果我们将目标值设置在这些不可能达到的范围，训练网络将会驱使更大的权重，以获得越来越大的输出，
+而这些输出实际上是不可能由激活函数生成的。这使得网络饱和，因此我们知道这种情况是很糟糕的。
+应该重新调整目标值，匹配激活函数的可能输出，注意避开激活函数不可能达到的值。
+虽然，常见的使用范围为0.0～1.0，但是由于0.0和1.0这两个数也不可能是目标值，并且有驱动产生过大的权重的风险，因此一些人也使用0.01 ～0.99的范围。</p>
+</section>
+<section id="id10">
+<h3>3、随机初始权重<a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
+<p>与输入和输出一样，同样的道理也适用于初始权重的设置。由于大的初始权重会造成大的信号传递给激活函数，
+导致网络饱和，从而降低网络学习到更好的权重的能力，因此应该避免大的初始权重值。
+我们可以从一1.0～+1.0之间随机均匀地选择初始权重。比起使用非常大的范围，比如说-1000～+1000，
+这是一个好得多的思路。</p>
+<p>对于给定特定形状的网络以及特定的激活函数，数学家和计算机科学家曾进行过数学计算，
+制定出了经验法则，设置了随机初始权重。数学家所得到的经验规则是：
+<strong>在一个节点传入链接数量平方根倒数的大致范围内随机采样，初始化权重。</strong>
+因此，如果每个节点具有3条传入链接，那么初始权重的范围应该在从 <span class="math notranslate nohighlight">\(-1/ \sqrt{3}\)</span> 到 <span class="math notranslate nohighlight">\(+1/\sqrt{3}\)</span> ，即士0.577之间。
+如果每个节点具有100条传入链接，那么权重的范围应该在 <span class="math notranslate nohighlight">\(-1/ \sqrt{100}\)</span> 到 <span class="math notranslate nohighlight">\(+1/\sqrt{100}\)</span> ，即士0.1之间。
+直觉上说，这是有意义的。一些过大的初始权重将会在偏置方向上偏置激活函数，非常大的权重将会使激活函数饱和。
+一个节点的传入链接越多，就有越多的信号被叠加在一起。因此，如果链接更多，那么减小权重的范围，这个经验法则是有道理的。
+从概率分布中进行采样的思想，那么这一经验法则实际上讲的是从均值为0、标准方差等于节点传入链接数量平方根倒数的正态分布中进行采样。</p>
+</section>
+</section>
+<section id="id11">
+<h2>六、使用Python实现神经网络<a class="headerlink" href="#id11" title="此标题的永久链接"></a></h2>
+<p>一个基本的神经网络应当具有三种功能：初始化函数、训练、查询。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.special</span>  <span class="c1"># 导入sigmoid函数</span>
+
+
+<span class="k">class</span> <span class="nc">Neural_Network</span><span class="p">:</span>
+
+    <span class="c1"># 初始化网络</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+        <span class="o">....</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># 网络训练（计算输出、与实际输出对比指导网络权重更新）</span>
+    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+        <span class="o">....</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># 计算输出</span>
+    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+        <span class="o">....</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+<p>假定神经网络一共有3层，每层的节点数量可变。</p>
+<section id="id12">
+<h3>1、初始化函数<a class="headerlink" href="#id12" title="此标题的永久链接"></a></h3>
+<p>从初始化网络开始，我们需要设置输入层节点、隐藏层节点和输出层节点的数量。
+这些节点数量定义了神经网络的形状和尺寸。这些数量并不固定，而是当我们使用参数创建一个新的神经网络对象时，才会确定这些数量。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_nodes</span><span class="p">,</span> <span class="n">hidden_nodes</span><span class="p">,</span> <span class="n">output_nodes</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">):</span>
+    <span class="c1"># set number of nodes in each input, hidden, output layer</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">inodes</span> <span class="o">=</span> <span class="n">input_nodes</span>   <span class="c1"># 输入层</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">hnodes</span> <span class="o">=</span> <span class="n">hidden_nodes</span>  <span class="c1"># 隐藏层</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">onodes</span> <span class="o">=</span> <span class="n">output_nodes</span>  <span class="c1"># 输出层</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">learning_rate</span>     <span class="c1"># 学习率</span>
+
+    <span class="c1"># 简单生成初始化权重矩阵（-0.5到+0.5）</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">s_wih</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hnodes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inodes</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">s_who</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onodes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hnodes</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1"># 简单生成初始化权重矩阵</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">wih</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hnodes</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hnodes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inodes</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">who</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onodes</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onodes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hnodes</span><span class="p">))</span>
+
+    <span class="c1"># 激活函数确定为sigmoid函数</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">activation_function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">scipy</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">expit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># 使用lambda创建函数</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</section>
+<section id="id13">
+<h3>2、查询（正向传播）<a class="headerlink" href="#id13" title="此标题的永久链接"></a></h3>
+<p>输入（相对于后一层而言，进入节点都可以称为输入）</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}X=\begin{pmatrix} x_1 \\  x_2 \\  x_3 \\ \cdots \\ x_{m-1} \\ x_m \end{pmatrix}\\\end{split}\]</div>
+<p>权重矩阵</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}W=
+\begin{pmatrix}
+{\omega}_{11} &amp; {\omega}_{21} &amp; {\omega}_{31} &amp; \cdots &amp; {\omega}_{m1}\\
+{\omega}_{12} &amp; {\omega}_{22} &amp; {\omega}_{32} &amp; \cdots &amp; {\omega}_{m2}\\
+{\omega}_{13} &amp; {\omega}_{23} &amp; {\omega}_{33} &amp; \cdots &amp; {\omega}_{m3}\\
+{\omega}_{14} &amp; {\omega}_{24} &amp; {\omega}_{34} &amp; \cdots &amp; {\omega}_{m4}\\
+\cdots &amp; \cdots &amp; \cdots &amp; \cdots &amp; \cdots\\
+{\omega}_{1n} &amp; {\omega}_{2n} &amp; {\omega}_{3n} &amp; \cdots &amp; {\omega}_{mn}\\
+\end{pmatrix}\end{split}\]</div>
+<p>则输出</p>
+<div class="math notranslate nohighlight">
+\[Y=f(W \cdot X)=sigmoid(W \cdot X)\]</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>输入 <span class="math notranslate nohighlight">\(X\)</span> 既可以是行向量也可以是列向量，区别在于矩阵相乘的顺序（WX或XW）和权重矩阵的排列不同。</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs_list</span><span class="p">):</span>
+    <span class="c1"># 将列表输入变成数组</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">inputs_list</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="c1"># 输入层到隐藏层</span>
+    <span class="n">hidden_inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wih</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+
+    <span class="c1"># 隐藏层通过激活函数输出</span>
+    <span class="n">hidden_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation_function</span><span class="p">(</span><span class="n">hidden_inputs</span><span class="p">)</span>
+
+    <span class="c1"># 隐藏层到输出层</span>
+    <span class="n">final_inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">who</span><span class="p">,</span> <span class="n">hidden_outputs</span><span class="p">)</span>
+
+    <span class="c1"># 输出层通过激活函数输出</span>
+    <span class="n">final_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation_function</span><span class="p">(</span><span class="n">final_inputs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">final_outputs</span>
+</pre></div>
+</div>
+</section>
+<section id="id14">
+<h3>3、训练（误差反向传播）<a class="headerlink" href="#id14" title="此标题的永久链接"></a></h3>
+<a class="reference internal image-reference" href="_images/error_fun.jpeg"><img alt="_images/error_fun.jpeg" class="align-center" src="_images/error_fun.jpeg" style="width: 640.0px; height: 480.0px;" /></a>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs_list</span><span class="p">,</span> <span class="n">targets_list</span><span class="p">):</span>
+    <span class="c1"># 将列表输入变成数组</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">inputs_list</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">targets_list</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="c1"># 计算进入隐藏层的输入</span>
+    <span class="n">hidden_inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wih</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+
+    <span class="c1"># 激活函数计算隐藏层输出</span>
+    <span class="n">hidden_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation_function</span><span class="p">(</span><span class="n">hidden_inputs</span><span class="p">)</span>
+
+    <span class="c1"># 计算进入输出层的输入</span>
+    <span class="n">final_inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">who</span><span class="p">,</span> <span class="n">hidden_outputs</span><span class="p">)</span>
+
+    <span class="c1"># 激活函数计算输出层输出</span>
+    <span class="n">final_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation_function</span><span class="p">(</span><span class="n">final_inputs</span><span class="p">)</span>
+
+    <span class="c1"># 计算误差 e = target - actual</span>
+    <span class="n">output_errors</span> <span class="o">=</span> <span class="n">targets</span> <span class="o">-</span> <span class="n">final_outputs</span>
+
+    <span class="c1"># 计算反向传播误差</span>
+    <span class="n">hidden_errors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">who</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">output_errors</span><span class="p">)</span>
+
+    <span class="c1"># 更新隐藏层和输出层的权重</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">who</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">((</span><span class="n">output_errors</span> <span class="o">*</span> <span class="n">final_outputs</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">final_outputs</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">hidden_outputs</span><span class="p">))</span>
+
+    <span class="c1"># 更新输入层和隐藏层的权重</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">wih</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">((</span><span class="n">hidden_errors</span> <span class="o">*</span> <span class="n">hidden_outputs</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">hidden_outputs</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">inputs</span><span class="p">))</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</section>
+<section id="minist">
+<h3>4、实例：MINIST数据集<a class="headerlink" href="#minist" title="此标题的永久链接"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># load the mnist training data CSV file into a list</span>
+<span class="n">training_data_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">MINIST训练集数据路径</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">training_data_list</span> <span class="o">=</span> <span class="n">training_data_file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+<span class="n">training_data_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1"># number of input, hidden and output nodes</span>
+<span class="n">input_nodes</span> <span class="o">=</span> <span class="mi">784</span>
+<span class="n">hidden_nodes</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">output_nodes</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1"># learning rate</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="c1"># create instance of neural network</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">Neural_Network</span><span class="p">(</span><span class="n">input_nodes</span><span class="p">,</span> <span class="n">hidden_nodes</span><span class="p">,</span> <span class="n">output_nodes</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">)</span>
+
+<span class="c1"># train the neural network</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+    <span class="c1"># go through all records in the training data set</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training...&quot;</span> <span class="o">+</span> <span class="s1">&#39;epochs:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">training_data_list</span><span class="p">:</span>
+        <span class="c1"># split the record by the &#39;,&#39; commas</span>
+        <span class="n">all_values</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="c1"># scale and shift the inputs</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asfarray</span><span class="p">(</span><span class="n">all_values</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">/</span> <span class="mf">255.0</span> <span class="o">*</span> <span class="mf">0.99</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.01</span>
+        <span class="c1"># create the target output values (all 0.01, except the desired label which is 0.99)</span>
+        <span class="n">targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">output_nodes</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.01</span>
+        <span class="c1"># all_values[0] is the target label for this record</span>
+        <span class="n">targets</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">all_values</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">=</span> <span class="mf">0.99</span>
+        <span class="n">n</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
+        <span class="k">pass</span>
+    <span class="k">pass</span>
+
+<span class="c1"># test the neural network</span>
+
+<span class="c1"># scorecard for how well the network performs, initially empty</span>
+<span class="n">scorecard</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># load the mnist test data CSV file into a list</span>
+<span class="n">test_data_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">MINIST测试集数据路径</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">test_data_list</span> <span class="o">=</span> <span class="n">test_data_file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+<span class="n">test_data_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1"># go through all the records in the test data set</span>
+<span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">test_data_list</span><span class="p">:</span>
+    <span class="c1"># split the record by the &#39;,&#39; commas</span>
+    <span class="n">all_values</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+    <span class="c1"># correct answer is first value</span>
+    <span class="n">correct_label</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">all_values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># scale and shift the inputs</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asfarray</span><span class="p">(</span><span class="n">all_values</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">/</span> <span class="mf">255.0</span> <span class="o">*</span> <span class="mf">0.99</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.01</span>
+    <span class="c1"># query the network</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="c1"># the index of the highest value corresponds to the label</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+    <span class="c1"># append correct or incorrect to list</span>
+    <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="n">correct_label</span><span class="p">:</span>
+        <span class="c1"># network&#39;s answer matches correct answer, add 1 to scorecard</span>
+        <span class="n">scorecard</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># network&#39;s answer doesn&#39;t match correct answer, add 0 to scorecard</span>
+        <span class="n">scorecard</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">pass</span>
+
+    <span class="k">pass</span>
+
+<span class="c1"># calculate the performance score, the fraction of correct answers</span>
+<span class="n">scorecard_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">scorecard</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;performance = &quot;</span><span class="p">,</span> <span class="n">scorecard_array</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">scorecard_array</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="Vim%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B.html" class="btn btn-neutral float-left" title="Vim编辑器基础教程" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2024, YU SHI.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

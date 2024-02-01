@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>问题1：常见的终端任务 &mdash; Mofang&#39;s Docs v0.0 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="关于此文档" href="about.html" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Mofang's Docs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">关于</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reStructureText%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8.html">reStructureText语法入门</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mofang's Docs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">问题1：常见的终端任务</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Lab_answer.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>问题1：常见的终端任务<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
+<p>对于下面的1-6，提交生成所需结果所需的命令。对于1-4，尝试只生成所需的结果（没有无关信息）。</p>
+<p><strong>1. 在<code class="docutils literal notranslate"><span class="pre">/usr/bin</span></code>中列出最近修改的5个项目。</strong></p>
+<p>普通版：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/usr/bin
+shimofang@shimofang-virtual-machine:/usr/bin$<span class="w"> </span>ls<span class="w"> </span>-1t<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-5
+zstdcat
+zstdmt
+ypdomainname
+xzcat
+xzcmp
+</pre></div>
+</div>
+<p>没有无关信息版：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~$<span class="w"> </span>ls<span class="w"> </span>/usr/bin<span class="w"> </span>-1t<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-5
+zstdcat
+zstdmt
+ypdomainname
+xzcat
+xzcmp
+</pre></div>
+</div>
+<p><strong>2.<code class="docutils literal notranslate"><span class="pre">git</span></code>安装在哪个目录中？</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~$<span class="w"> </span>which<span class="w"> </span>git
+/usr/bin/git
+</pre></div>
+</div>
+<p><strong>3.显示实验室目录中的隐藏文件（题目替换为显示<code class="docutils literal notranslate"><span class="pre">/home/{your_username}</span></code>中的隐藏文件）</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~$<span class="w"> </span>ls<span class="w"> </span>-a
+.<span class="w">              </span>.bash_logout<span class="w">  </span>Downloads<span class="w">         </span>Picture<span class="w">                    </span>Video
+..<span class="w">             </span>.bashrc<span class="w">       </span>.lesshst<span class="w">          </span>.profile
+模板<span class="w">           </span>.cache<span class="w">        </span>.local<span class="w">            </span>Public
+桌面<span class="w">           </span>.config<span class="w">       </span>Music<span class="w">             </span>snap
+.bash_history<span class="w">  </span>Doc<span class="w">           </span>.pam_environment<span class="w">  </span>.sudo_as_admin_successful
+</pre></div>
+</div>
+<p><strong>4.安装了哪个版本的Vim？描述你是如何弄明白这一点的。</strong></p>
+<p>使用版本查看命令：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~$<span class="w"> </span>vim<span class="w"> </span>--version
+VIM<span class="w"> </span>-<span class="w"> </span>Vi<span class="w"> </span>IMproved<span class="w"> </span><span class="m">8</span>.2<span class="w"> </span><span class="o">(</span><span class="m">2019</span><span class="w"> </span>Dec<span class="w"> </span><span class="m">12</span>,<span class="w"> </span>compiled<span class="w"> </span>Aug<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">2023</span><span class="w"> </span><span class="m">04</span>:12:26<span class="o">)</span>
+包含补丁:<span class="w"> </span><span class="m">1</span>-3995,<span class="w"> </span><span class="m">4563</span>,<span class="w"> </span><span class="m">4646</span>,<span class="w"> </span><span class="m">4774</span>,<span class="w"> </span><span class="m">4895</span>,<span class="w"> </span><span class="m">4899</span>,<span class="w"> </span><span class="m">4901</span>,<span class="w"> </span><span class="m">4919</span>,<span class="w"> </span><span class="m">213</span>
+修改者<span class="w"> </span>team+vim@tracker.debian.org
+编译者<span class="w"> </span>team+vim@tracker.debian.org
+and<span class="w"> </span>more...
+</pre></div>
+</div>
+<p><strong>5.将此实验室中的文件复制到/scratch，然后删除它。（题目替换为把以下命令生成的文件复制到/scratch，然后删除它）</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">L1Q5</span>
+<span class="n">ls</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="p">{</span><span class="n">your_username</span><span class="p">}</span><span class="o">/</span><span class="n">L1Q5</span><span class="o">/</span><span class="nb">list</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">sort</span> <span class="o">&lt;</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="p">{</span><span class="n">your_username</span><span class="p">}</span><span class="o">/</span><span class="n">L1Q5</span><span class="o">/</span><span class="nb">list</span><span class="o">.</span><span class="n">txt</span> <span class="o">&gt;</span>  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="p">{</span><span class="n">your_username</span><span class="p">}</span><span class="o">/</span><span class="n">L1Q5</span><span class="o">/</span><span class="n">list_sorted</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>使用<code class="docutils literal notranslate"><span class="pre">cp</span></code>和<code class="docutils literal notranslate"><span class="pre">rm</span></code>：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~$<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>/home/shimofang/L1Q5<span class="w"> </span>/home/shimofang/scratch
+shimofang@shimofang-virtual-machine:~$<span class="w"> </span>ls<span class="w"> </span>/home/shimofang/scratch
+list_sorted.txt<span class="w">  </span>list.txt
+shimofang@shimofang-virtual-machine:~$<span class="w"> </span>rm<span class="w"> </span>-r<span class="w"> </span>/home/shimofang/scratch
+shimofang@shimofang-virtual-machine:~$<span class="w"> </span>ls<span class="w"> </span>/home/shimofang/scratch
+ls:<span class="w"> </span>cannot<span class="w"> </span>access<span class="w"> </span><span class="s1">&#39;/home/shimofang/scratch&#39;</span>:<span class="w"> </span>No<span class="w"> </span>such<span class="w"> </span>file<span class="w"> </span>or<span class="w"> </span>directory
+</pre></div>
+</div>
+<p><strong>6.运行<code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">www.google.com</span></code>，暂停它，然后终止进程。然后在后台运行它，报告它的PID，然后杀死进程。</strong></p>
+<p>暂停进程使用<code class="docutils literal notranslate"><span class="pre">ctrl+z</span></code></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~$<span class="w"> </span>ping<span class="w"> </span>www.google.com
+PING<span class="w"> </span>www.google.com<span class="w"> </span><span class="o">(</span><span class="m">98</span>.159.108.57<span class="o">)</span><span class="w"> </span><span class="m">56</span><span class="o">(</span><span class="m">84</span><span class="o">)</span><span class="w"> </span>bytes<span class="w"> </span>of<span class="w"> </span>data.
+^Z
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>+<span class="w">  </span>Stopped<span class="w">                 </span>ping<span class="w"> </span>www.google.com
+shimofang@shimofang-virtual-machine:~$<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>%1
+
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>+<span class="w">  </span>Stopped<span class="w">                 </span>ping<span class="w"> </span>www.google.com
+shimofang@shimofang-virtual-machine:~$<span class="w"> </span>ping<span class="w"> </span>www.google.com<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span><span class="w"> </span><span class="m">9813</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w">   </span>Terminated<span class="w">              </span>ping<span class="w"> </span>www.google.com
+shimofang@shimofang-virtual-machine:~$<span class="w"> </span>ps
+<span class="w">    </span>PID<span class="w"> </span>TTY<span class="w">          </span>TIME<span class="w"> </span>CMD
+<span class="w">   </span><span class="m">9804</span><span class="w"> </span>pts/0<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>bash
+<span class="w">   </span><span class="m">9813</span><span class="w"> </span>pts/0<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>ping
+<span class="w">   </span><span class="m">9814</span><span class="w"> </span>pts/0<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>ps
+shimofang@shimofang-virtual-machine:~$<span class="w"> </span><span class="nb">kill</span><span class="w"> </span><span class="m">9813</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>+<span class="w">  </span>Terminated<span class="w">              </span>ping<span class="w"> </span>www.google.com
+</pre></div>
+</div>
+<p><strong>7.运行顶部并报告平均CPU负载、最高CPU作业和使用的内存量（只需报告此问题的结果；您无需提供命令/如何获得它）。</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~$<span class="w"> </span>top
+
+top<span class="w"> </span>-<span class="w"> </span><span class="m">01</span>:43:46<span class="w"> </span>up<span class="w"> </span><span class="m">10</span>:46,<span class="w">  </span><span class="m">1</span><span class="w"> </span>user,<span class="w">  </span>load<span class="w"> </span>average:<span class="w"> </span><span class="m">0</span>.09,<span class="w"> </span><span class="m">0</span>.15,<span class="w"> </span><span class="m">0</span>.17
+Tasks:<span class="w"> </span><span class="m">285</span><span class="w"> </span>total,<span class="w">   </span><span class="m">2</span><span class="w"> </span>running,<span class="w"> </span><span class="m">283</span><span class="w"> </span>sleeping,<span class="w">   </span><span class="m">0</span><span class="w"> </span>stopped,<span class="w">   </span><span class="m">0</span><span class="w"> </span>zombie
+%Cpu<span class="o">(</span>s<span class="o">)</span>:<span class="w">  </span><span class="m">1</span>.5<span class="w"> </span>us,<span class="w">  </span><span class="m">0</span>.8<span class="w"> </span>sy,<span class="w">  </span><span class="m">0</span>.0<span class="w"> </span>ni,<span class="w"> </span><span class="m">97</span>.6<span class="w"> </span>id,<span class="w">  </span><span class="m">0</span>.0<span class="w"> </span>wa,<span class="w">  </span><span class="m">0</span>.0<span class="w"> </span>hi,<span class="w">  </span><span class="m">0</span>.0<span class="w"> </span>si,<span class="w">  </span><span class="m">0</span>.0<span class="w"> </span>st
+MiB<span class="w"> </span>Mem<span class="w"> </span>:<span class="w">   </span><span class="m">3871</span>.6<span class="w"> </span>total,<span class="w">    </span><span class="m">167</span>.9<span class="w"> </span>free,<span class="w">   </span><span class="m">1297</span>.1<span class="w"> </span>used,<span class="w">   </span><span class="m">2406</span>.5<span class="w"> </span>buff/cache
+MiB<span class="w"> </span>Swap:<span class="w">   </span><span class="m">2140</span>.0<span class="w"> </span>total,<span class="w">   </span><span class="m">2136</span>.5<span class="w"> </span>free,<span class="w">      </span><span class="m">3</span>.5<span class="w"> </span>used.<span class="w">   </span><span class="m">2282</span>.0<span class="w"> </span>avail<span class="w"> </span>Mem<span class="w"> </span>
+
+<span class="w">    </span>PID<span class="w"> </span>USER<span class="w">      </span>PR<span class="w">  </span>NI<span class="w">    </span>VIRT<span class="w">    </span>RES<span class="w">    </span>SHR<span class="w"> </span>S<span class="w">  </span>%CPU<span class="w">  </span>%MEM<span class="w">     </span>TIME+<span class="w"> </span>COMMAND<span class="w">                              </span>
+<span class="w">   </span><span class="m">1250</span><span class="w"> </span>shimofa+<span class="w">  </span><span class="m">20</span><span class="w">   </span><span class="m">0</span><span class="w"> </span><span class="m">4395076</span><span class="w"> </span><span class="m">275088</span><span class="w"> </span><span class="m">129524</span><span class="w"> </span>R<span class="w">   </span><span class="m">3</span>.3<span class="w">   </span><span class="m">6</span>.9<span class="w">   </span><span class="m">7</span>:03.90<span class="w"> </span>gnome-shell<span class="w">                          </span>
+<span class="w">   </span><span class="m">9776</span><span class="w"> </span>shimofa+<span class="w">  </span><span class="m">20</span><span class="w">   </span><span class="m">0</span><span class="w">  </span><span class="m">645044</span><span class="w">  </span><span class="m">61908</span><span class="w">  </span><span class="m">47320</span><span class="w"> </span>S<span class="w">   </span><span class="m">1</span>.0<span class="w">   </span><span class="m">1</span>.6<span class="w">   </span><span class="m">0</span>:01.64<span class="w"> </span>gnome-terminal-<span class="w">                      </span>
+<span class="w">   </span><span class="m">9820</span><span class="w"> </span>shimofa+<span class="w">  </span><span class="m">20</span><span class="w">   </span><span class="m">0</span><span class="w">   </span><span class="m">16304</span><span class="w">   </span><span class="m">4096</span><span class="w">   </span><span class="m">3200</span><span class="w"> </span>R<span class="w">   </span><span class="m">1</span>.0<span class="w">   </span><span class="m">0</span>.1<span class="w">   </span><span class="m">0</span>:00.40<span class="w"> </span>top<span class="w">                                  </span>
+<span class="w">    </span><span class="m">584</span><span class="w"> </span>root<span class="w">      </span><span class="m">20</span><span class="w">   </span><span class="m">0</span><span class="w">  </span><span class="m">320524</span><span class="w">   </span><span class="m">9088</span><span class="w">   </span><span class="m">7552</span><span class="w"> </span>S<span class="w">   </span><span class="m">0</span>.7<span class="w">   </span><span class="m">0</span>.2<span class="w">   </span><span class="m">3</span>:15.23<span class="w"> </span>vmtoolsd<span class="w">                             </span>
+<span class="w">   </span><span class="m">9748</span><span class="w"> </span>root<span class="w">      </span><span class="m">20</span><span class="w">   </span><span class="m">0</span><span class="w">       </span><span class="m">0</span><span class="w">      </span><span class="m">0</span><span class="w">      </span><span class="m">0</span><span class="w"> </span>I<span class="w">   </span><span class="m">0</span>.7<span class="w">   </span><span class="m">0</span>.0<span class="w">   </span><span class="m">0</span>:01.26<span class="w"> </span>kworker/0:1-events<span class="w">                   </span>
+top<span class="w"> </span>-<span class="w"> </span><span class="m">01</span>:44:25<span class="w"> </span>up<span class="w"> </span><span class="m">10</span>:47,<span class="w">  </span><span class="m">1</span><span class="w"> </span>user,<span class="w">  </span>load<span class="w"> </span>average:<span class="w"> </span><span class="m">0</span>.24,<span class="w"> </span><span class="m">0</span>.18,<span class="w"> </span><span class="m">0</span>.18
+Tasks:<span class="w"> </span><span class="m">285</span><span class="w"> </span>total,<span class="w">   </span><span class="m">1</span><span class="w"> </span>running,<span class="w"> </span><span class="m">284</span><span class="w"> </span>sleeping,<span class="w">   </span><span class="m">0</span><span class="w"> </span>stopped,<span class="w">   </span><span class="m">0</span><span class="w"> </span>zombie
+%Cpu<span class="o">(</span>s<span class="o">)</span>:<span class="w">  </span><span class="m">1</span>.7<span class="w"> </span>us,<span class="w">  </span><span class="m">0</span>.8<span class="w"> </span>sy,<span class="w">  </span><span class="m">0</span>.0<span class="w"> </span>ni,<span class="w"> </span><span class="m">97</span>.5<span class="w"> </span>id,<span class="w">  </span><span class="m">0</span>.0<span class="w"> </span>wa,<span class="w">  </span><span class="m">0</span>.0<span class="w"> </span>hi,<span class="w">  </span><span class="m">0</span>.0<span class="w"> </span>si,<span class="w">  </span><span class="m">0</span>.0<span class="w"> </span>st
+MiB<span class="w"> </span>Mem<span class="w"> </span>:<span class="w">   </span><span class="m">3871</span>.6<span class="w"> </span>total,<span class="w">    </span><span class="m">167</span>.6<span class="w"> </span>free,<span class="w">   </span><span class="m">1297</span>.5<span class="w"> </span>used,<span class="w">   </span><span class="m">2406</span>.5<span class="w"> </span>buff/cache
+MiB<span class="w"> </span>Swap:<span class="w">   </span><span class="m">2140</span>.0<span class="w"> </span>total,<span class="w">   </span><span class="m">2136</span>.5<span class="w"> </span>free,<span class="w">      </span><span class="m">3</span>.5<span class="w"> </span>used.<span class="w">   </span><span class="m">2281</span>.6<span class="w"> </span>avail<span class="w"> </span>Mem<span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h1>问题2：常见的编辑任务<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h1>
+<p>对于下面的每个任务，描述您需要按的键（the keys you need to press）来完成文件<code class="docutils literal notranslate"><span class="pre">force_regs.ucli</span></code>中的操作。</p>
+<section id="id3">
+<h2>缺失文件，暂时跳过（2023.9.24）<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
+<p><strong>1.删除5行</strong></p>
+<p><strong>2.搜索文本时钟</strong></p>
+<p><strong>3.将文本dut替换为device_under_test</strong></p>
+<p><strong>4.跳到文件的末尾</strong></p>
+<p><strong>5.转到42号线</strong></p>
+<p><strong>6.重新加载文件（以防在另一个窗口中修改）</strong></p>
+<p><strong>7.保存并退出</strong></p>
+</section>
+</section>
+<section id="id4">
+<h1>问题3：正则表达式的乐趣<a class="headerlink" href="#id4" title="此标题的永久链接"></a></h1>
+<section id="id5">
+<h2>缺失文件，暂时跳过（2023.9.24）<a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
+<p>对于每个正则表达式，提供基本模式和扩展模式（sed和sed -r）的答案。您可以使用多个命令来执行每个任务。对force_regs.ucli文件进行操作。</p>
+<p><strong>1.将所有x的周围数字更改为角括号。例如，regx15xx79x变为reg&lt;15&gt;&lt;79&gt;。提示：记住启用全局替换。</strong></p>
+<p><strong>2.使文件中的每个数字都恰好为3位数字，并加了前导零（每行的最后0除外）。</strong> 例如，第120/121行应为：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">force</span> <span class="o">-</span><span class="n">deposit</span> <span class="n">rocketTestHarness</span><span class="o">.</span><span class="n">dut</span><span class="o">.</span><span class="n">Raven003Top_withoutPads</span><span class="o">.</span><span class="n">TileWrap</span><span class="o">.</span>
+<span class="o">...</span> <span class="o">.</span><span class="n">io_tilelink_release_data</span><span class="o">.</span><span class="n">sync_w002r</span><span class="o">.</span><span class="n">rq002_wptr_regx000x</span><span class="o">.</span><span class="n">Q</span> <span class="mi">0</span>
+<span class="n">force</span> <span class="o">-</span><span class="n">deposit</span> <span class="n">rocketTestHarness</span><span class="o">.</span><span class="n">dut</span><span class="o">.</span><span class="n">Raven003Top_withoutPads</span><span class="o">.</span><span class="n">TileWrap</span><span class="o">.</span>
+<span class="o">...</span> <span class="o">.</span><span class="n">io_tilelink_release_data</span><span class="o">.</span><span class="n">fifomem</span><span class="o">.</span><span class="n">mem_regx015xx098x</span><span class="o">.</span><span class="n">Q</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h1>问题4：了解文件权限<a class="headerlink" href="#id6" title="此标题的永久链接"></a></h1>
+<p>对于下面的每个任务，请提供设置正确权限的命令。对文件的现有权限不做出假设。在<code class="docutils literal notranslate"><span class="pre">list.txt</span></code>上操作（Q1中创建的文件）。</p>
+<p><strong>1.将脚本更改为由您而不是其他人可执行。</strong></p>
+<p>由题意，权限应该调整为<code class="docutils literal notranslate"><span class="pre">-rwxrw-rw-</span></code>,对应<code class="docutils literal notranslate"><span class="pre">766</span></code></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w">  </span>/home/shimofang/L1Q5/list.txt
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>shimofang<span class="w"> </span>shimofang<span class="w"> </span><span class="m">65</span><span class="w">  </span>9月<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="m">01</span>:26<span class="w"> </span>/home/shimofang/L1Q5/list.txt
+shimofang@shimofang-virtual-machine:~$<span class="w"> </span>chmod<span class="w"> </span><span class="m">766</span><span class="w"> </span>/home/shimofang/L1Q5/list.txt
+shimofang@shimofang-virtual-machine:~$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w">  </span>/home/shimofang/L1Q5/list.txt
+-rwxrw-rw-<span class="w"> </span><span class="m">1</span><span class="w"> </span>shimofang<span class="w"> </span>shimofang<span class="w"> </span><span class="m">65</span><span class="w">  </span>9月<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="m">01</span>:26<span class="w"> </span>/home/shimofang/L1Q5/list.txt
+</pre></div>
+</div>
+<p><strong>2.为组中的每个人添加权限，以便能够执行相同的脚本</strong></p>
+<p>调整为<code class="docutils literal notranslate"><span class="pre">-rwxrwxrwx</span></code>，对应<code class="docutils literal notranslate"><span class="pre">777</span></code></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w">  </span>/home/shimofang/L1Q5/list.txt
+-rwxrw-rw-<span class="w"> </span><span class="m">1</span><span class="w"> </span>shimofang<span class="w"> </span>shimofang<span class="w"> </span><span class="m">65</span><span class="w">  </span>9月<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="m">01</span>:26<span class="w"> </span>/home/shimofang/L1Q5/list.txt
+shimofang@shimofang-virtual-machine:~$<span class="w"> </span>chmod<span class="w"> </span><span class="m">777</span><span class="w">  </span>/home/shimofang/L1Q5/list.txt
+shimofang@shimofang-virtual-machine:~$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w">  </span>/home/shimofang/L1Q5/list.txt
+-rwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>shimofang<span class="w"> </span>shimofang<span class="w"> </span><span class="m">65</span><span class="w">  </span>9月<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="m">01</span>:26<span class="w"> </span>/home/shimofang/L1Q5/list.txt
+</pre></div>
+</div>
+<p><strong>3.使脚本被你组中的每个人都可写，但其他人无法阅读</strong></p>
+<p>调整为<code class="docutils literal notranslate"><span class="pre">-rwxrwx---</span></code>，对应<code class="docutils literal notranslate"><span class="pre">770</span></code></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w">  </span>/home/shimofang/L1Q5/list.txt
+-rwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>shimofang<span class="w"> </span>shimofang<span class="w"> </span><span class="m">65</span><span class="w">  </span>9月<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="m">01</span>:26<span class="w"> </span>/home/shimofang/L1Q5/list.txt
+shimofang@shimofang-virtual-machine:~$<span class="w"> </span>chmod<span class="w"> </span><span class="m">770</span><span class="w">  </span>/home/shimofang/L1Q5/list.txt
+shimofang@shimofang-virtual-machine:~$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w">  </span>/home/shimofang/L1Q5/list.txt
+-rwxrwx---<span class="w"> </span><span class="m">1</span><span class="w"> </span>shimofang<span class="w"> </span>shimofang<span class="w"> </span><span class="m">65</span><span class="w">  </span>9月<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="m">01</span>:26<span class="w"> </span>/home/shimofang/L1Q5/list.txt
+</pre></div>
+</div>
+<p><strong>4.将文件的所有者更改为eecs151（注意：您将无法执行此命令，因此只需提供命令本身）</strong></p>
+<p>使用<code class="docutils literal notranslate"><span class="pre">chown</span></code>命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">chown</span> <span class="n">eecs151</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">shimofang</span><span class="o">/</span><span class="n">L1Q5</span><span class="o">/</span><span class="nb">list</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</section>
+<section id="makefile">
+<h1>问题5：Makefile<a class="headerlink" href="#makefile" title="此标题的永久链接"></a></h1>
+<p><strong>1.添加一个新的<code class="docutils literal notranslate"><span class="pre">make</span></code>规则，该规则将创建一个名为<code class="docutils literal notranslate"><span class="pre">foo.txt</span></code>的文件。让它也运行<code class="docutils literal notranslate"><span class="pre">output_name</span></code>规则。</strong></p>
+<p><strong>2.命名至少两种方法，您可以在运行其规则后让<code class="docutils literal notranslate"><span class="pre">makefile</span></code>重新生成<code class="docutils literal notranslate"><span class="pre">output_name</span></code>目标。</strong></p>
+</section>
+<section id="git">
+<h1>问题6：Git的理解<a class="headerlink" href="#git" title="此标题的永久链接"></a></h1>
+<p>提交执行以下任务所需的命令：</p>
+<p><strong>1.您当前的Makefile与您开始使用的文件有什么区别？</strong></p>
+<p>使用命令<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span> <span class="pre">fie_name</span></code>来查看更改。</p>
+<p><strong>2.你如何建立一个新的分支？</strong></p>
+<p>使用命令<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">branch</span> <span class="pre">new_branch_name</span></code>。</p>
+<p><strong>3.您查看的版本的<code class="docutils literal notranslate"><span class="pre">SHA</span></code>是什么？</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span></code>中保存了所有commit修改版本的信息和其版本对应的SHA值。</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2023, YU SHI.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

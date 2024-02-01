@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>git&amp;gh教程 &mdash; Mofang&#39;s Docs v0.0 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="关于此文档" href="about.html" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Mofang's Docs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">关于</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reStructureText%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8.html">reStructureText语法入门</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mofang's Docs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">git</span></code>&amp;<code class="docutils literal notranslate"><span class="pre">gh</span></code>教程</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/git_and_gh.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="git-gh">
+<h1><code class="docutils literal notranslate"><span class="pre">git</span></code>&amp;<code class="docutils literal notranslate"><span class="pre">gh</span></code>教程<a class="headerlink" href="#git-gh" title="此标题的永久链接"></a></h1>
+<p>教程来自：<a class="reference external" href="https://www.liaoxuefeng.com/wiki/896043488029600">史上最浅显易懂的Git教程！</a></p>
+<section id="gitgithub-cli-gh">
+<h2>一、<code class="docutils literal notranslate"><span class="pre">Git</span></code>和Github CLI（<code class="docutils literal notranslate"><span class="pre">gh</span></code>）之间的区别<a class="headerlink" href="#gitgithub-cli-gh" title="此标题的永久链接"></a></h2>
+<p><strong>Git</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">Git</span></code>是一个开源的分布式版本控制系统，最初由林纳斯·托瓦兹（Linus Torvalds）于2005年创建。</p>
+<p>它被广泛用于软件开发中，以管理项目的更改历史记录和版本控制。<code class="docutils literal notranslate"><span class="pre">Git</span></code>允许多个开发者在同一项目上独立地工作，并可以轻松地合并和管理代码。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Git</span></code>的核心理念是每个开发者都有一个完整的本地存储库，使他们能够在离线状态下进行工作。这些本地存储库可以与其他开发者的存储库同步，以便更好地协同工作。Git通过使用分支和合并的概念，使多人协作开发变得更加高效。</p>
+<p><strong>Github CLI</strong></p>
+<p>Github CLI（简称<code class="docutils literal notranslate"><span class="pre">gh</span></code>）是Github官方提供的命令行接口，用于与Github进行交互。它提供了一系列命令，允许用户在命令行中管理存储库、问题、拉取请求等Github上的内容。</p>
+<p>通过Github CLI，用户可以通过简单的命令来完成常见的Github操作，例如创建和克隆存储库、提交和推送更改、创建问题和拉取请求等等。Github CLI提供了一种更快捷和便利的方式来与Github进行交互，尤其适用于喜欢在命令行中工作的开发者。</p>
+</section>
+<section id="git">
+<h2>二、Git基本操作<a class="headerlink" href="#git" title="此标题的永久链接"></a></h2>
+<section id="id1">
+<h3>1.创建本地库<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h3>
+<p>首先，新建一个库要存放内容的文件夹，并进入文件夹：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~$<span class="w"> </span>mkdir<span class="w"> </span>./my_first_repo
+shimofang@shimofang-virtual-machine:~$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>./my_first_repo
+</pre></div>
+</div>
+<p>然后，通过<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">init</span></code>命令把这个目录变成<code class="docutils literal notranslate"><span class="pre">Git</span></code>可以管理的仓库：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~/my_first_repo$<span class="w"> </span>git<span class="w"> </span>init
+hint:<span class="w"> </span>Using<span class="w"> </span><span class="s1">&#39;master&#39;</span><span class="w"> </span>as<span class="w"> </span>the<span class="w"> </span>name<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>initial<span class="w"> </span>branch.<span class="w"> </span>This<span class="w"> </span>default<span class="w"> </span>branch<span class="w"> </span>name
+hint:<span class="w"> </span>is<span class="w"> </span>subject<span class="w"> </span>to<span class="w"> </span>change.<span class="w"> </span>To<span class="w"> </span>configure<span class="w"> </span>the<span class="w"> </span>initial<span class="w"> </span>branch<span class="w"> </span>name<span class="w"> </span>to<span class="w"> </span>use<span class="w"> </span><span class="k">in</span><span class="w"> </span>all
+hint:<span class="w"> </span>of<span class="w"> </span>your<span class="w"> </span>new<span class="w"> </span>repositories,<span class="w"> </span>which<span class="w"> </span>will<span class="w"> </span>suppress<span class="w"> </span>this<span class="w"> </span>warning,<span class="w"> </span>call:
+hint:<span class="w"> </span>
+hint:<span class="w"> 	</span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>init.defaultBranch<span class="w"> </span>&lt;name&gt;
+hint:<span class="w"> </span>
+hint:<span class="w"> </span>Names<span class="w"> </span>commonly<span class="w"> </span>chosen<span class="w"> </span>instead<span class="w"> </span>of<span class="w"> </span><span class="s1">&#39;master&#39;</span><span class="w"> </span>are<span class="w"> </span><span class="s1">&#39;main&#39;</span>,<span class="w"> </span><span class="s1">&#39;trunk&#39;</span><span class="w"> </span>and
+hint:<span class="w"> </span><span class="s1">&#39;development&#39;</span>.<span class="w"> </span>The<span class="w"> </span>just-created<span class="w"> </span>branch<span class="w"> </span>can<span class="w"> </span>be<span class="w"> </span>renamed<span class="w"> </span>via<span class="w"> </span>this<span class="w"> </span>command:
+hint:<span class="w"> </span>
+hint:<span class="w"> 	</span>git<span class="w"> </span>branch<span class="w"> </span>-m<span class="w"> </span>&lt;name&gt;
+Initialized<span class="w"> </span>empty<span class="w"> </span>Git<span class="w"> </span>repository<span class="w"> </span><span class="k">in</span><span class="w"> </span>/home/shimofang/my_first_repo/.git/
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>2.添加文件<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h3>
+<p>把文件添加到版本库一定要确保文件放到了库的目录下（或者子目录）：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~/my_first_repo$<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>list.txt
+shimofang@shimofang-virtual-machine:~/my_first_repo$<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>list_sorted.txt
+</pre></div>
+</div>
+<p>然后用命令<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code>告诉<code class="docutils literal notranslate"><span class="pre">Git</span></code>，把文件提交到了仓库：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~/my_first_repo$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s1">&#39;my first add&#39;</span>
+<span class="o">[</span>master<span class="w"> </span><span class="o">(</span>root-commit<span class="o">)</span><span class="w"> </span>1ccc033<span class="o">]</span><span class="w"> </span>my<span class="w"> </span>first<span class="w"> </span>add
+<span class="w"> </span><span class="m">2</span><span class="w"> </span>files<span class="w"> </span>changed,<span class="w"> </span><span class="m">21</span><span class="w"> </span>insertions<span class="o">(</span>+<span class="o">)</span>
+<span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100755</span><span class="w"> </span>list.txt
+<span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>list_sorted.txt
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>3.修改文件<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
+<p>简单修改一下<code class="docutils literal notranslate"><span class="pre">list.txt</span></code>，<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code>命令可以让我们时刻掌握仓库当前的状态：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~/my_first_repo$<span class="w"> </span>git<span class="w"> </span>status
+On<span class="w"> </span>branch<span class="w"> </span>master
+Changes<span class="w"> </span>not<span class="w"> </span>staged<span class="w"> </span><span class="k">for</span><span class="w"> </span>commit:
+<span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git add &lt;file&gt;...&quot;</span><span class="w"> </span>to<span class="w"> </span>update<span class="w"> </span>what<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>committed<span class="o">)</span>
+<span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git restore &lt;file&gt;...&quot;</span><span class="w"> </span>to<span class="w"> </span>discard<span class="w"> </span>changes<span class="w"> </span><span class="k">in</span><span class="w"> </span>working<span class="w"> </span>directory<span class="o">)</span>
+<span class="w">	</span>modified:<span class="w">   </span>list.txt
+
+no<span class="w"> </span>changes<span class="w"> </span>added<span class="w"> </span>to<span class="w"> </span>commit<span class="w"> </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git add&quot;</span><span class="w"> </span>and/or<span class="w"> </span><span class="s2">&quot;git commit -a&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>上面的命令输出告诉我们，<code class="docutils literal notranslate"><span class="pre">list.txt</span></code>被修改过了，但还没有准备提交的修改。虽然<code class="docutils literal notranslate"><span class="pre">Git</span></code>告诉我们<code class="docutils literal notranslate"><span class="pre">list.txt</span></code>被修改了。</p>
+<p>如果要看具体修改了什么内容，需要用<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span></code>这个命令看看：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>shimofang@shimofang-virtual-machine:~/my_first_repo$<span class="w"> </span>git<span class="w"> </span>diff<span class="w"> </span>list.txt
+diff<span class="w"> </span>--git<span class="w"> </span>a/list.txt<span class="w"> </span>b/list.txt
+index<span class="w"> </span>d5f07f9..7968da7<span class="w"> </span><span class="m">100755</span>
+---<span class="w"> </span>a/list.txt
++++<span class="w"> </span>b/list.txt
+@@<span class="w"> </span>-2,10<span class="w"> </span>+2,11<span class="w"> </span>@@
+<span class="w"> </span>桌面
+<span class="w"> </span>Doc
+<span class="w"> </span>Downloads
+-L1Q5
++L5Q1
+<span class="w"> </span>Music
+<span class="w"> </span>Picture
+<span class="w"> </span>Public
+<span class="w"> </span>snap
+<span class="w"> </span>Video
+<span class="w"> </span><span class="m">666666</span>
++new<span class="w"> </span>line
+</pre></div>
+</div>
+<p>知道了对<code class="docutils literal notranslate"><span class="pre">list.txt</span></code>作了什么修改后，再把它提交到仓库就放心多了。</p>
+<p>提交修改和提交新文件是一样的两步，第一步是<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code>，然后可以<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code>查看状态，最后<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;message&quot;</span></code>。</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2023, YU SHI.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
