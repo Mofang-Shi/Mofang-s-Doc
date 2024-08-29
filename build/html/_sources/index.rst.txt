@@ -4,7 +4,7 @@ Mofang Shi的笔记
 
 .. toctree::
   :maxdepth: 1
-  :caption: 教程
+  :caption: 旧的内容
 
   reStructureText语法入门.rst
   git与gh基础知识.md

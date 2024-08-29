@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN">
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>(TGRS, 2022) 遥感图像处理 &mdash; Mofang&#39;s Docs v0.0 文档</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
   
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/translations.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=c57d4d51"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/translations.js?v=beaddf03"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="author" title="关于此文档" href="../about.html" />
@@ -46,7 +46,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
-              <p class="caption" role="heading"><span class="caption-text">教程</span></p>
+              <p class="caption" role="heading"><span class="caption-text">旧的内容</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../reStructureText%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8.html">reStructureText语法入门</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../git%E4%B8%8Egh%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">git&amp;gh教程</a></li>
@@ -114,7 +114,7 @@
            <div itemprop="articleBody">
              
   <section id="tgrs-2022">
-<h1>(TGRS, 2022) 遥感图像处理<a class="headerlink" href="#tgrs-2022" title="此标题的永久链接"></a></h1>
+<h1>(TGRS, 2022) 遥感图像处理<a class="headerlink" href="#tgrs-2022" title="Link to this heading"></a></h1>
 <dl class="simple">
 <dt>论文题目:</dt><dd><p><a class="reference external" href="https://www.researchgate.net/publication/363602706_Hyperspectral_Image_Classification_of_Brain-Inspired_Spiking_Neural_Network_Based_on_Approximate_Derivative_Algorithm">Hyperspectral Image Classification of Brain-Inspired Spiking Neural Network Based on Approximate Derivative Algorithm</a></p>
 </dd>
@@ -126,9 +126,9 @@
 </dd>
 </dl>
 <section id="id1">
-<h2>一、基本知识<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h2>
+<h2>一、基本知识<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <section id="id2">
-<h3>卫星遥感的分辨率及图像<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h3>
+<h3>卫星遥感的分辨率及图像<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
 <p>卫星遥感，可以理解为遥远的感知。遥感技术利用搭载在遥感平台上面的传感器对目标地物发射或反射的电磁波信息记录下来从而形成遥感影像（或其他遥感数据）。</p>
 <ul class="simple">
 <li><p><strong>空间分辨率</strong></p></li>
@@ -144,7 +144,7 @@
 <p>对同一地点的重复观测能力，通常也把时间分辨率称为重访周期，重访周期越短，时间分辨率越髙。髙时间分辨率对于地物的动态变化检测等具有重要作用。</p>
 </section>
 <section id="hsi">
-<h3>高光谱图像HSI<a class="headerlink" href="#hsi" title="此标题的永久链接"></a></h3>
+<h3>高光谱图像HSI<a class="headerlink" href="#hsi" title="Link to this heading"></a></h3>
 <p>高光谱图像(Hyperspectral image, HSI)最大特点是将成像技术与光谱探测技术结合，在对目标的空间特征成像的同时，
 对每个空间像元经过色散形成几十个乃至几百个窄波段以进行连续的光谱覆盖。
 这样形成的数据可以用“ <strong>三维数据块</strong> ”来形象地描述，如下图所示。
@@ -155,7 +155,7 @@
 而光谱信息能充分反映样品内部的物理结构、化学成分的差异。这些特点决定了高光谱图像技术在农产品内外部品质的检测方面的独特优势。</p>
 </section>
 <section id="id3">
-<h3>三类数字图像——伪彩色，真彩色，假彩色<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
+<h3>三类数字图像——伪彩色，真彩色，假彩色<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p><strong>伪彩色</strong>：</p></li>
@@ -181,7 +181,7 @@
 </div></blockquote>
 </section>
 <section id="id4">
-<h3>高光谱数据集<a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
+<h3>高光谱数据集<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <p>常用高光谱数据集的介绍参见
 <a class="reference external" href="http://www.tup.tsinghua.edu.cn/upload/books/yz/097167-01.pdf">3.1.2 常用高光谱数据集</a>
 。常见的高光谱数据集数据均以.mat格式储存，即Matlab的数组形式。以Pavia University scene数据集为例，
@@ -208,9 +208,9 @@
 </section>
 </section>
 <section id="id6">
-<h2>二、论文使用的方法<a class="headerlink" href="#id6" title="此标题的永久链接"></a></h2>
+<h2>二、论文使用的方法<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
 <section id="lif">
-<h3>LIF神经元模型<a class="headerlink" href="#lif" title="此标题的永久链接"></a></h3>
+<h3>LIF神经元模型<a class="headerlink" href="#lif" title="Link to this heading"></a></h3>
 <p>LIF模型的膜电位 <span class="math notranslate nohighlight">\(V\)</span> 的公式如下:</p>
 <div class="math notranslate nohighlight">
 \[{\tau}_{m}\frac{dV}{dt}=-V+I(t)\tag{1}\]</div>
@@ -234,7 +234,7 @@
 \frac{V(t)}{time \quad steps}\]</div>
 </section>
 <section id="id7">
-<h3>近似导数算法<a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
+<h3>近似导数算法<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <p>定义损失函数 <span class="math notranslate nohighlight">\(L\)</span> ，根据链式法则更新每层的权重 <span class="math notranslate nohighlight">\(\omega\)</span>。权重 <span class="math notranslate nohighlight">\(\omega\)</span> 的导数可以表示为：</p>
 <div class="math notranslate nohighlight">
 \[\frac{\partial L}{\partial {\omega}}=
@@ -258,30 +258,30 @@
 \frac{\partial V}{\partial {\omega}}\]</div>
 </section>
 <section id="id8">
-<h3>直接编码<a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
+<h3>直接编码<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
 <p>文章使用了
 <a class="reference external" href="https://arxiv.org/abs/2008.03658">Rathi, 2020</a>
 等人提出的直接编码方法，图像的模拟像素值直接应用于SNN的输入层，而无需转换为脉冲再训练。
 第一个卷积层将被训练成将输入转换为脉冲，其中LIF神经元整合加权输入，并在膜电位超过训练的点火阈值时产生输出脉冲。</p>
 </section>
 <section id="id9">
-<h3>主成分分析<a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
+<h3>主成分分析<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
 <p>主成分分析法的目的主要是从几百个波段中提取主成分波段作为光谱特征，主成分波段包含了原始图像的大多数信息。</p>
 </section>
 <section id="id10">
-<h3>脉冲标准卷积和深度可分离卷积<a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
+<h3>脉冲标准卷积和深度可分离卷积<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
 <a class="reference internal image-reference" href="../_images/HSI_Fig5_6.png"><img alt="../_images/HSI_Fig5_6.png" class="align-center" src="../_images/HSI_Fig5_6.png" style="width: 609.0px; height: 614.5999999999999px;" /></a>
 </section>
 <section id="id11">
-<h3>提出模型的结构及参数<a class="headerlink" href="#id11" title="此标题的永久链接"></a></h3>
+<h3>提出模型的结构及参数<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
 <a class="reference internal image-reference" href="../_images/HSI_Fig7.png"><img alt="../_images/HSI_Fig7.png" class="align-center" src="../_images/HSI_Fig7.png" style="width: 644.0px; height: 307.29999999999995px;" /></a>
 <a class="reference internal image-reference" href="../_images/HSI_Table1.png"><img alt="../_images/HSI_Table1.png" class="align-center" src="../_images/HSI_Table1.png" style="width: 586.5999999999999px; height: 399.7px;" /></a>
 </section>
 </section>
 <section id="pythonpytroch">
-<h2>二、使用Python基于Pytroch复现<a class="headerlink" href="#pythonpytroch" title="此标题的永久链接"></a></h2>
+<h2>二、使用Python基于Pytroch复现<a class="headerlink" href="#pythonpytroch" title="Link to this heading"></a></h2>
 <section id="id12">
-<h3>数据预处理<a class="headerlink" href="#id12" title="此标题的永久链接"></a></h3>
+<h3>数据预处理<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
 <p>文章使用了6个公开数据集，选择PU数据集进行分析。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从mat文件中加载数据和标签</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;/Users/shimofang/Downloads/HSI_SNN-main/data/PaviaU.mat&#39;</span><span class="p">)[</span><span class="s1">&#39;paviaU&#39;</span><span class="p">]</span>
@@ -421,7 +421,7 @@
 </div>
 </section>
 <section id="id13">
-<h3>脉冲网络模型<a class="headerlink" href="#id13" title="此标题的永久链接"></a></h3>
+<h3>脉冲网络模型<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 
@@ -671,16 +671,16 @@
 </section>
 </section>
 <section id="python">
-<h2>三、使用Python无框架复现<a class="headerlink" href="#python" title="此标题的永久链接"></a></h2>
+<h2>三、使用Python无框架复现<a class="headerlink" href="#python" title="Link to this heading"></a></h2>
 </section>
 <section id="c">
-<h2>四、使用C#复现<a class="headerlink" href="#c" title="此标题的永久链接"></a></h2>
+<h2>四、使用C#复现<a class="headerlink" href="#c" title="Link to this heading"></a></h2>
 </section>
 <section id="id14">
-<h2>五、硬件电路实现<a class="headerlink" href="#id14" title="此标题的永久链接"></a></h2>
+<h2>五、硬件电路实现<a class="headerlink" href="#id14" title="Link to this heading"></a></h2>
 </section>
 <section id="id15">
-<h2>参考资料<a class="headerlink" href="#id15" title="此标题的永久链接"></a></h2>
+<h2>参考资料<a class="headerlink" href="#id15" title="Link to this heading"></a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p><a class="reference external" href="https://blog.csdn.net/Chaolei3/article/details/79672162">数字图像的类型——伪彩色，真彩色，假彩色</a></p></li>
@@ -700,7 +700,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2024, YU SHI.</p>
+    <p>&#169; 版权所有 2024, YU SHI。</p>
   </div>
 
   利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 

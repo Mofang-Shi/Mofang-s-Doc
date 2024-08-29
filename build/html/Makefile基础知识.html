@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN">
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Makefile基础 &mdash; Mofang&#39;s Docs v0.0 文档</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
   
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/translations.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=c57d4d51"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="关于此文档" href="about.html" />
     <link rel="index" title="索引" href="genindex.html" />
@@ -46,8 +46,8 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="about.html">关于</a></li>
+              <p class="caption" role="heading"><span class="caption-text">旧的内容</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="reStructureText%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8.html">reStructureText语法入门</a></li>
 <li class="toctree-l1"><a class="reference internal" href="git%E4%B8%8Egh%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">git&amp;gh教程</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">Linux基础</a></li>
@@ -63,6 +63,11 @@
 <li class="toctree-l1"><a class="reference internal" href="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">正则表达式教程</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Vim%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B.html">Vim编辑器基础教程</a></li>
 <li class="toctree-l1"><a class="reference internal" href="%E6%89%8B%E6%90%93%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html">Python手搓神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">关于</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文复现</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/%E9%81%A5%E6%84%9F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86.html">(TGRS, 2022) 遥感图像处理</a></li>
 </ul>
 
         </div>
@@ -90,14 +95,14 @@
            <div itemprop="articleBody">
              
   <section id="makefile">
-<h1>Makefile基础<a class="headerlink" href="#makefile" title="此标题的永久链接"></a></h1>
+<h1>Makefile基础<a class="headerlink" href="#makefile" title="Link to this heading"></a></h1>
 <section id="id1">
-<h2>介绍<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h2>
+<h2>介绍<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>本教程来自<code class="docutils literal notranslate"><span class="pre">UCB</span> <span class="pre">EECS151</span> <span class="pre">ASIC</span> <span class="pre">Lab1</span></code>推荐阅读的教程：<a class="reference external" href="https://cs.colby.edu/maxwell/courses/tutorials/maketutor/">A Simple Makefile Tutorial</a></p>
 <p>额外的阅读资料（个人觉得读这个更好）：<a class="reference external" href="https://blog.csdn.net/weixin_38391755/article/details/80380786">Makefile教程</a></p>
 </section>
 <section id="lab1">
-<h2>一个示例（来自<code class="docutils literal notranslate"><span class="pre">Lab1</span></code>）<a class="headerlink" href="#lab1" title="此标题的永久链接"></a></h2>
+<h2>一个示例（来自<code class="docutils literal notranslate"><span class="pre">Lab1</span></code>）<a class="headerlink" href="#lab1" title="Link to this heading"></a></h2>
 <p>让我们看看一个简单的makefile，来解释一些关于它们如何工作的事情。如果您查看某的文本编辑器中提供的文件夹中的<code class="docutils literal notranslate"><span class="pre">Makefile</span></code>，您可以看到以下行：</p>
 <div class="highlight-Makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">output_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>force_regs.random.ucli
 
@@ -125,10 +130,10 @@
 <p>awk脚本之后的其他字符也是要制作的特殊字符。<code class="docutils literal notranslate"><span class="pre">$&lt;</span></code>是该目标的第一个依赖项，<code class="docutils literal notranslate"><span class="pre">&gt;</span></code>只是重定向<code class="docutils literal notranslate"><span class="pre">awk</span></code>的输出，<code class="docutils literal notranslate"><span class="pre">$&#64;</span></code>是目标本身的名称。这允许用户创建可重用的文件，因为您正在依赖项上操作，并将结果输出到您自己的目标名称中。</p>
 </section>
 <section id="id2">
-<h2>一个简单的Makefile教程（来自推荐阅读）<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
+<h2>一个简单的Makefile教程（来自推荐阅读）<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <p>Makefiles是组织代码编译（code compilation）的简单方法。本教程甚至没有触及使用make的可能性，而是作为入门指南，以便可以快速轻松地为中小型项目创建自己的makefile。</p>
 <section id="id3">
-<h3>一个简单的例子<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
+<h3>一个简单的例子<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <p>让我们从以下三个文件开始，<code class="docutils literal notranslate"><span class="pre">hellomake.c</span></code>、<code class="docutils literal notranslate"><span class="pre">hellofunc.c</span></code>和<code class="docutils literal notranslate"><span class="pre">hellomake.h</span></code>（C语言头文件），它们将分别代表一个典型的<strong>主程序</strong>、一个单独文件中的<strong>一些功能代码</strong>和一个<strong>包含文件</strong>。</p>
 <p><code class="docutils literal notranslate"><span class="pre">hellomake.c</span></code></p>
 <div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;hellomake.h&gt;</span>
@@ -273,7 +278,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2024, YU SHI.</p>
+    <p>&#169; 版权所有 2024, YU SHI。</p>
   </div>
 
   利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 

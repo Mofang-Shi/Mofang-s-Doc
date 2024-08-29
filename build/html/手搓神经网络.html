@@ -1,29 +1,30 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN">
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Python手搓神经网络 &mdash; Mofang&#39;s Docs v0.0 文档</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
   
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/translations.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=c57d4d51"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="关于此文档" href="about.html" />
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="关于" href="about.html" />
     <link rel="prev" title="Vim编辑器基础教程" href="Vim%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B.html" /> 
 </head>
 
@@ -46,8 +47,8 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="about.html">关于</a></li>
+              <p class="caption" role="heading"><span class="caption-text">旧的内容</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="reStructureText%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8.html">reStructureText语法入门</a></li>
 <li class="toctree-l1"><a class="reference internal" href="git%E4%B8%8Egh%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">git&amp;gh教程</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">Linux基础</a></li>
@@ -78,6 +79,11 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">关于</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文复现</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/%E9%81%A5%E6%84%9F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86.html">(TGRS, 2022) 遥感图像处理</a></li>
 </ul>
 
         </div>
@@ -105,7 +111,7 @@
            <div itemprop="articleBody">
              
   <section id="python">
-<h1>Python手搓神经网络<a class="headerlink" href="#python" title="此标题的永久链接"></a></h1>
+<h1>Python手搓神经网络<a class="headerlink" href="#python" title="Link to this heading"></a></h1>
 <p>一个最普通的神经网络搭建大致可以分为以下几个部分：</p>
 <p>一、输入的正向传播</p>
 <p>二、误差的反向传播</p>
@@ -113,24 +119,24 @@
 <p>四、使误差函数的值最小化</p>
 <p>五、准备数据</p>
 <section id="id1">
-<h2>一、输入的正向传播<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h2>
+<h2>一、输入的正向传播<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <section id="id2">
-<h3>1、网络输入<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h3>
+<h3>1、网络输入<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
 <p>在实际中，网络输入的数据种类繁多。按照维度主要有一维、二维（灰度图）、三维（RGB图片）。
 同时为了充分利用计算机性能，每次进入网络训练的数据不止一组，而是一<strong>批</strong>（batch）。</p>
 </section>
 <section id="id3">
-<h3>2、正向传播<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
+<h3>2、正向传播<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <p>单个神经元向前传播的原理如下：</p>
 <a class="reference internal image-reference" href="_images/neural.png"><img alt="_images/neural.png" class="align-center" src="_images/neural.png" style="width: 642.0px; height: 283.0px;" /></a>
 </section>
 </section>
 <section id="id4">
-<h2>二、误差的反向传播<a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
+<h2>二、误差的反向传播<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
 <a class="reference internal image-reference" href="_images/error.png"><img alt="_images/error.png" class="align-center" src="_images/error.png" style="width: 721.0px; height: 353.0px;" /></a>
 </section>
 <section id="id5">
-<h2>三、误差函数的选择<a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
+<h2>三、误差函数的选择<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
 <p>神经网络的输出是一个极其复杂困难的函数，这个函数具有许多参数影响到其输出的链接权重。
 神经网络本身的输出函数不是一个误差函数。但由于误差是目标训练值与实际输出值之间的差值，
 因此我们可以很容易地把输出函数变成误差函数。</p>
@@ -138,7 +144,7 @@
 <span class="math notranslate nohighlight">\({|目标值-实际值|}^{2}\)</span></p>
 </section>
 <section id="id6">
-<h2>四、使误差函数的值最小化<a class="headerlink" href="#id6" title="此标题的永久链接"></a></h2>
+<h2>四、使误差函数的值最小化<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
 <p>定义误差函数的梯度：</p>
 <div class="math notranslate nohighlight">
 \[\frac{\partial E}{\partial {\omega}_{j,k}}\]</div>
@@ -182,9 +188,9 @@
 \[{\omega}_{j,k}^{new} = {\omega}_{j,k}^{old} - \alpha \times \frac{\partial E}{\partial {\omega}_{j,k}}\]</div>
 </section>
 <section id="id7">
-<h2>五、准备数据<a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
+<h2>五、准备数据<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
 <section id="id8">
-<h3>1、输入<a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
+<h3>1、输入<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
 <p>以sigmoid函数为例，可以发现如果输入变大，激活函数将会变得非常平坦。</p>
 <a class="reference internal image-reference" href="_images/sigmoid.png"><img alt="_images/sigmoid.png" class="align-center" src="_images/sigmoid.png" style="width: 486.0px; height: 325.0px;" /></a>
 <p>由于我们使用梯度学习新的权重，因此一个平坦的激活函数会出问题。
@@ -197,7 +203,7 @@
 因此在某些情况下可以将此输入加上一个小小的偏移，如0.01，避免输入0带来麻烦。</p>
 </section>
 <section id="id9">
-<h3>2、输出<a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
+<h3>2、输出<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
 <p>神经网络的输出是最后一层节点输出的信号。
 <strong>如果我们使用的激活函数不能生成大于1的值，那么尝试将训练目标值设置为比较大的值就有点愚蠢了。</strong>
 如果我们将目标值设置在这些不可能达到的范围，训练网络将会驱使更大的权重，以获得越来越大的输出，
@@ -206,7 +212,7 @@
 虽然，常见的使用范围为0.0～1.0，但是由于0.0和1.0这两个数也不可能是目标值，并且有驱动产生过大的权重的风险，因此一些人也使用0.01 ～0.99的范围。</p>
 </section>
 <section id="id10">
-<h3>3、随机初始权重<a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
+<h3>3、随机初始权重<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
 <p>与输入和输出一样，同样的道理也适用于初始权重的设置。由于大的初始权重会造成大的信号传递给激活函数，
 导致网络饱和，从而降低网络学习到更好的权重的能力，因此应该避免大的初始权重值。
 我们可以从一1.0～+1.0之间随机均匀地选择初始权重。比起使用非常大的范围，比如说-1000～+1000，
@@ -222,7 +228,7 @@
 </section>
 </section>
 <section id="id11">
-<h2>六、使用Python实现神经网络<a class="headerlink" href="#id11" title="此标题的永久链接"></a></h2>
+<h2>六、使用Python实现神经网络<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
 <p>一个基本的神经网络应当具有三种功能：初始化函数、训练、查询。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy.special</span>  <span class="c1"># 导入sigmoid函数</span>
@@ -248,7 +254,7 @@
 </div>
 <p>假定神经网络一共有3层，每层的节点数量可变。</p>
 <section id="id12">
-<h3>1、初始化函数<a class="headerlink" href="#id12" title="此标题的永久链接"></a></h3>
+<h3>1、初始化函数<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
 <p>从初始化网络开始，我们需要设置输入层节点、隐藏层节点和输出层节点的数量。
 这些节点数量定义了神经网络的形状和尺寸。这些数量并不固定，而是当我们使用参数创建一个新的神经网络对象时，才会确定这些数量。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_nodes</span><span class="p">,</span> <span class="n">hidden_nodes</span><span class="p">,</span> <span class="n">output_nodes</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">):</span>
@@ -272,7 +278,7 @@
 </div>
 </section>
 <section id="id13">
-<h3>2、查询（正向传播）<a class="headerlink" href="#id13" title="此标题的永久链接"></a></h3>
+<h3>2、查询（正向传播）<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
 <p>输入（相对于后一层而言，进入节点都可以称为输入）</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}X=\begin{pmatrix} x_1 \\  x_2 \\  x_3 \\ \cdots \\ x_{m-1} \\ x_m \end{pmatrix}\\\end{split}\]</div>
@@ -315,7 +321,7 @@
 </div>
 </section>
 <section id="id14">
-<h3>3、训练（误差反向传播）<a class="headerlink" href="#id14" title="此标题的永久链接"></a></h3>
+<h3>3、训练（误差反向传播）<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
 <a class="reference internal image-reference" href="_images/error_fun.jpeg"><img alt="_images/error_fun.jpeg" class="align-center" src="_images/error_fun.jpeg" style="width: 640.0px; height: 480.0px;" /></a>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs_list</span><span class="p">,</span> <span class="n">targets_list</span><span class="p">):</span>
     <span class="c1"># 将列表输入变成数组</span>
@@ -350,7 +356,7 @@
 </div>
 </section>
 <section id="minist">
-<h3>4、实例：MINIST数据集<a class="headerlink" href="#minist" title="此标题的永久链接"></a></h3>
+<h3>4、实例：MINIST数据集<a class="headerlink" href="#minist" title="Link to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># load the mnist training data CSV file into a list</span>
 <span class="n">training_data_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">MINIST训练集数据路径</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="n">training_data_list</span> <span class="o">=</span> <span class="n">training_data_file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
@@ -433,12 +439,13 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="Vim%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B.html" class="btn btn-neutral float-left" title="Vim编辑器基础教程" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="about.html" class="btn btn-neutral float-right" title="关于" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2024, YU SHI.</p>
+    <p>&#169; 版权所有 2024, YU SHI。</p>
   </div>
 
   利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 

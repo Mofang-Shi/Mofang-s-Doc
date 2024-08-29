@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN">
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>正则表达式教程 &mdash; Mofang&#39;s Docs v0.0 文档</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
   
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/translations.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=c57d4d51"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="关于此文档" href="about.html" />
     <link rel="index" title="索引" href="genindex.html" />
@@ -46,8 +46,8 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="about.html">关于</a></li>
+              <p class="caption" role="heading"><span class="caption-text">旧的内容</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="reStructureText%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8.html">reStructureText语法入门</a></li>
 <li class="toctree-l1"><a class="reference internal" href="git%E4%B8%8Egh%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">git&amp;gh教程</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">Linux基础</a></li>
@@ -75,6 +75,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Vim%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B.html">Vim编辑器基础教程</a></li>
 <li class="toctree-l1"><a class="reference internal" href="%E6%89%8B%E6%90%93%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html">Python手搓神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">关于</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文复现</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/%E9%81%A5%E6%84%9F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86.html">(TGRS, 2022) 遥感图像处理</a></li>
 </ul>
 
         </div>
@@ -102,13 +107,13 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>正则表达式教程<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
+<h1>正则表达式教程<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
 <section id="id2">
-<h2>介绍<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
+<h2>介绍<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <p>本教程来自<code class="docutils literal notranslate"><span class="pre">UCB</span> <span class="pre">EECS151</span> <span class="pre">ASIC</span> <span class="pre">Lab1</span></code>推荐阅读的教程：<a class="reference external" href="https://regexone.com">Learn Regular Expressions with simple, interactive exercises.</a></p>
 </section>
 <section id="lesson-1">
-<h2>Lesson 1: 简介<a class="headerlink" href="#lesson-1" title="此标题的永久链接"></a></h2>
+<h2>Lesson 1: 简介<a class="headerlink" href="#lesson-1" title="Link to this heading"></a></h2>
 <p>正则表达式（Regular expressions）在从代码、日志文件、电子表格甚至文档（ code, log files, spreadsheets, or even documents）等文本中提取信息方面非常有用。虽然形式语言（formal languages）背后有很多理论，但本课程和示例将探索正则表达式的更实际用途，以便可以尽快使用它们。</p>
 <p>使用正则表达式时要识别的第一件事是，<strong>一切本质上都是字符（ everything is essentially a character）</strong>，我们正在编写模式来匹配特定的字符序列（sequence of characters，也称为字符串，string）。大多数模式使用普通的<code class="docutils literal notranslate"><span class="pre">ASCII</span></code>，其中包括字母、数字、标点符号（letters, digits, punctuation）和键盘上的其他符号，如%#$&#64;!，但<code class="docutils literal notranslate"><span class="pre">Unicode字符</span></code>也可用于匹配任何类型的国际文本。</p>
 <p>请注意以下图片中键入字符时是如何匹配的：</p>
@@ -117,7 +122,7 @@
 <p><img alt="错误" src="_images/regular_expressions_lesson1_fig_3.png" /></p>
 </section>
 <section id="lesson-112-digits">
-<h2>Lesson 1½: 数字（digits）<a class="headerlink" href="#lesson-112-digits" title="此标题的永久链接"></a></h2>
+<h2>Lesson 1½: 数字（digits）<a class="headerlink" href="#lesson-112-digits" title="Link to this heading"></a></h2>
 <p>字符包括普通字母（normal letters），但也包括数字（digits）。事实上，数字0-9也只是字符，如果您查看<code class="docutils literal notranslate"><span class="pre">ASCII表</span></code>，它们会按一定的顺序列出。</p>
 <p>在本课程中，您将了解一些用于正则表达式的<strong>特殊元字符（metacharacters）</strong>，这些元字符可用于匹配特定类型的字符。</p>
 <p>字符<code class="docutils literal notranslate"><span class="pre">\d</span></code>可以代替从0到9的任何一个数字。前面的斜杠将其与简单的d字符区分开来，并表示它是一个元字符。</p>
@@ -126,7 +131,7 @@
 <p><img alt="正确" src="_images/regular_expressions_lesson1_5_fig_4.png" /></p>
 </section>
 <section id="lesson-2-dot">
-<h2>Lesson 2: 点（<code class="docutils literal notranslate"><span class="pre">.</span></code>dot）<a class="headerlink" href="#lesson-2-dot" title="此标题的永久链接"></a></h2>
+<h2>Lesson 2: 点（<code class="docutils literal notranslate"><span class="pre">.</span></code>dot）<a class="headerlink" href="#lesson-2-dot" title="Link to this heading"></a></h2>
 <p>我们经常使用正则表达式匹配不知道确切内容的文本，但它们具有共同的模式或结构（pattern or structure），例如电话号码或邮政编码。</p>
 <p>通配符（wildcard）由<code class="docutils literal notranslate"><span class="pre">.</span></code>元字符（metacharacter）表示，可以匹配任何单个字符（字母、数字、空格、所有内容）。</p>
 <p>您可能会注意到，这实际上覆盖了句号字符的匹配，因此为了具体匹配句点，您需要使用斜杠（slash）<code class="docutils literal notranslate"><span class="pre">\.</span></code>相应地转义点（escape the dot）。</p>
@@ -134,13 +139,13 @@
 <p><img alt="正确" src="_images/regular_expressions_lesson2_fig_1.png" /></p>
 </section>
 <section id="lesson-3-matching-specific-characters">
-<h2>Lesson 3: 匹配特定字符（Matching specific characters）<a class="headerlink" href="#lesson-3-matching-specific-characters" title="此标题的永久链接"></a></h2>
+<h2>Lesson 3: 匹配特定字符（Matching specific characters）<a class="headerlink" href="#lesson-3-matching-specific-characters" title="Link to this heading"></a></h2>
 <p>有一种方法可以使用正则表达式匹配特定字符，方法是在方括号内定义它们。</p>
 <p>例如，<code class="docutils literal notranslate"><span class="pre">[abc]</span></code>将只匹配单个a、b或c字母，而不会匹配其他字母。</p>
 <p><img alt="正确" src="_images/regular_expressions_lesson3_fig_1.png" /></p>
 </section>
 <section id="lesson-4-excluding-specific-characters">
-<h2>Lesson 4: 排除特定字符（Excluding specific characters）<a class="headerlink" href="#lesson-4-excluding-specific-characters" title="此标题的永久链接"></a></h2>
+<h2>Lesson 4: 排除特定字符（Excluding specific characters）<a class="headerlink" href="#lesson-4-excluding-specific-characters" title="Link to this heading"></a></h2>
 <p>使用方括号<code class="docutils literal notranslate"><span class="pre">[]</span></code>和<code class="docutils literal notranslate"><span class="pre">^</span></code>（hat）排除特定字符。</p>
 <p>例如，<code class="docutils literal notranslate"><span class="pre">[^abc]</span></code>将匹配除字母a、b或c以外的任何单个字符。</p>
 <p>请注意，这种类型的大多数图案也可以用上一课中的技术来书写，可以在编写自己的模式时决定哪一个更容易编写和理解。</p>
@@ -148,7 +153,7 @@
 <p><img alt="正确" src="_images/regular_expressions_lesson4_fig_2.png" /></p>
 </section>
 <section id="lesson-5-character-ranges">
-<h2>Lesson 5: 字符范围（Character ranges）<a class="headerlink" href="#lesson-5-character-ranges" title="此标题的永久链接"></a></h2>
+<h2>Lesson 5: 字符范围（Character ranges）<a class="headerlink" href="#lesson-5-character-ranges" title="Link to this heading"></a></h2>
 <p>如果我们想匹配一个可以处于顺序范围字符的字符呢？</p>
 <p>幸运的是，在使用方括号<code class="docutils literal notranslate"><span class="pre">[]</span></code>表示法时，通过使用破折号<code class="docutils literal notranslate"><span class="pre">-</span></code>来指示字符范围来匹配顺序字符列表中的字符。</p>
 <p>例如，<code class="docutils literal notranslate"><span class="pre">[0-6]</span></code>只会匹配从零到六的任何一位数字字符，而不会匹配其他字符。</p>
@@ -157,7 +162,7 @@
 <p><img alt="正确" src="_images/regular_expressions_lesson5_fig_1.png" /></p>
 </section>
 <section id="lesson-6-catching-some-zzz">
-<h2>Lesson 6: 重复匹配（Catching some zzz’）<a class="headerlink" href="#lesson-6-catching-some-zzz" title="此标题的永久链接"></a></h2>
+<h2>Lesson 6: 重复匹配（Catching some zzz’）<a class="headerlink" href="#lesson-6-catching-some-zzz" title="Link to this heading"></a></h2>
 <p><strong>注意：并非所有正则表达式实现都支持以下重复语法的某些部分。</strong></p>
 <p>到目前为止，我们已经学会了如何指定我们想要匹配的字符范围，但我们想要匹配的字符的重复次数如何？我们可以做到这一点的一种方法是使用大括号表示法<code class="docutils literal notranslate"><span class="pre">{}</span></code>指定每个字符的重复次数。</p>
 <p>例如，<code class="docutils literal notranslate"><span class="pre">a{3}</span></code>将恰好匹配一个字符三次。某些正则表达式引擎甚至允许您为这种重复指定一个范围，例如，<code class="docutils literal notranslate"><span class="pre">a{1,3}</span></code>将匹配字符不超过3次，但不少于1次。</p>
@@ -165,7 +170,7 @@
 <p><img alt="正确" src="_images/regular_expressions_lesson6_fig_1.png" /></p>
 </section>
 <section id="lesson-7-mr-kleene-mr-kleene">
-<h2>Lesson 7：匹配任意数量（Mr. Kleene, Mr. Kleene）<a class="headerlink" href="#lesson-7-mr-kleene-mr-kleene" title="此标题的永久链接"></a></h2>
+<h2>Lesson 7：匹配任意数量（Mr. Kleene, Mr. Kleene）<a class="headerlink" href="#lesson-7-mr-kleene-mr-kleene" title="Link to this heading"></a></h2>
 <p>正则表达式中一个强大的概念是匹配任意数量的字符的能力。</p>
 <p>例如，有两个数字：<code class="docutils literal notranslate"><span class="pre">$25,000</span></code>和<code class="docutils literal notranslate"><span class="pre">$25</span></code></p>
 <p>为了匹配上述数字，我们可以使用<code class="docutils literal notranslate"><span class="pre">\d*</span></code>来匹配任意数量的位数，但更严格的正则表达式是<code class="docutils literal notranslate"><span class="pre">\d+</span></code>，这可以确保输入字符串至少有一位数字。</p>
@@ -174,7 +179,7 @@
 <p><img alt="正确" src="_images/regular_expressions_lesson7_fig_2.png" /></p>
 </section>
 <section id="lesson-8-characters-optional">
-<h2>Lesson 8: 字符可选（Characters optional）<a class="headerlink" href="#lesson-8-characters-optional" title="此标题的永久链接"></a></h2>
+<h2>Lesson 8: 字符可选（Characters optional）<a class="headerlink" href="#lesson-8-characters-optional" title="Link to this heading"></a></h2>
 <p>另一个在匹配和提取文本（matching and extracting text）时真正常见的量词（quantifier）是<code class="docutils literal notranslate"><span class="pre">?</span></code>，表示可选性的元字符。</p>
 <p>此元字符允许您匹配前一个字符或字符组0个或一个。例如，模式<code class="docutils literal notranslate"><span class="pre">ab?c</span></code>将匹配字符串“<code class="docutils literal notranslate"><span class="pre">abc</span></code>”或“<code class="docutils literal notranslate"><span class="pre">ac</span></code>”，因为<code class="docutils literal notranslate"><span class="pre">b</span></code>被认为是可选的。</p>
 <p>与<code class="docutils literal notranslate"><span class="pre">.</span></code>点元字符类似，问号是一个特殊字符，必须使用斜杠<code class="docutils literal notranslate"><span class="pre">\?</span></code>匹配字符串中的普通问号字符。</p>
@@ -183,47 +188,47 @@
 <p><img alt="正确" src="_images/regular_expressions_lesson8_fig_2.png" /></p>
 </section>
 <section id="lesson-9-all-this-whitespace">
-<h2>Lesson 9：所有这些空白（All this whitespace）<a class="headerlink" href="#lesson-9-all-this-whitespace" title="此标题的永久链接"></a></h2>
+<h2>Lesson 9：所有这些空白（All this whitespace）<a class="headerlink" href="#lesson-9-all-this-whitespace" title="Link to this heading"></a></h2>
 <p>在处理现实中的输入，如日志文件（log files）甚至用户输入（user input）时，很难不遇到空白。我们用它来格式化（format）信息片段，使其更容易在视觉上阅读和扫描，单个空格可以将扳手放入最简单的正则表达式中。</p>
 <p>您将与正则表达式一起使用的最常见的空白形式是空格（<code class="docutils literal notranslate"><span class="pre">␣</span></code>）、制表符（<code class="docutils literal notranslate"><span class="pre">\t</span></code>）、新行（<code class="docutils literal notranslate"><span class="pre">\n</span></code>）和回车符（<code class="docutils literal notranslate"><span class="pre">\r</span></code>）（在Windows环境中有用），这些特殊字符匹配各自的空格。此外，<strong>空格特殊字符<code class="docutils literal notranslate"><span class="pre">\s</span></code>将匹配上述任何特定空格</strong>，在处理原始输入文本时非常有用。</p>
 <p>与之对应，<code class="docutils literal notranslate"><span class="pre">\S</span></code>匹配任何不是空格的字符。</p>
 <p><img alt="正确" src="_images/regular_expressions_lesson9_fig_1.png" /></p>
 </section>
 <section id="lesson-10-starting-and-ending">
-<h2>Lesson 10: 开始和结束（Starting and ending）<a class="headerlink" href="#lesson-10-starting-and-ending" title="此标题的永久链接"></a></h2>
+<h2>Lesson 10: 开始和结束（Starting and ending）<a class="headerlink" href="#lesson-10-starting-and-ending" title="Link to this heading"></a></h2>
 <p>使用<code class="docutils literal notranslate"><span class="pre">^</span></code>（hat）和<code class="docutils literal notranslate"><span class="pre">$</span></code>（dollar sign）元字符（metacharacters）定义一个描述行开始和结束的模式。</p>
 <p>例如，我们可以使用<code class="docutils literal notranslate"><span class="pre">^success</span></code>仅匹配以“success”开头的行。如果使用<code class="docutils literal notranslate"><span class="pre">^success$</span></code>，将创建一个在开头和结尾完全匹配success的表达式。</p>
 <p>请注意，这与一组括号<code class="docutils literal notranslate"><span class="pre">[^...]</span></code>内用于排除字符的帽子不同。</p>
 <p><img alt="正确" src="_images/regular_expressions_lesson10_fig_1.png" /></p>
 </section>
 <section id="lesson-11-match-groups">
-<h2>Lesson 11: Match groups（匹配组）<a class="headerlink" href="#lesson-11-match-groups" title="此标题的永久链接"></a></h2>
+<h2>Lesson 11: Match groups（匹配组）<a class="headerlink" href="#lesson-11-match-groups" title="Link to this heading"></a></h2>
 <p>正则表达式不仅允许我们匹配文本，还允许提取信息以进行进一步处理（extract information for further processing）。这是通过定义字符组（groups of characters）并使用特殊括号（和）元字符捕获它们来完成的。一对括号中的任何子模式都将作为一个组捕获。在实践中，这可用于从各种数据中提取电话号码或电子邮件等信息。</p>
 <p>例如，你有一个命令行工具来列出云中的所有图像文件。然后，您可以使用<code class="docutils literal notranslate"><span class="pre">^(IMG\d+\.png)$</span></code>等模式来捕获和提取完整文件名，但如果您只想捕获没有扩展名的文件名，则可以使用模式<code class="docutils literal notranslate"><span class="pre">^(IMG\d+)\.png$</span></code>，该模式仅捕获名字部分。</p>
 <p><img alt="正确" src="_images/regular_expressions_lesson11_fig_1.png" /></p>
 </section>
 <section id="lesson-12-nested-groups">
-<h2>Lesson 12: 嵌套组（Nested groups）<a class="headerlink" href="#lesson-12-nested-groups" title="此标题的永久链接"></a></h2>
+<h2>Lesson 12: 嵌套组（Nested groups）<a class="headerlink" href="#lesson-12-nested-groups" title="Link to this heading"></a></h2>
 <p>当处理复杂数据时，很容易发现必须提取多层信息，这可能会导致嵌套组。通常，捕获组的结果按定义顺序排列（按开括号顺序排列）。</p>
 <p>以上一课中的示例为例，捕获列表中所有图像文件的文件名。如果每个图像文件在文件名中都有一个顺序图片号，您可以通过写入类似<code class="docutils literal notranslate"><span class="pre">^(IMG(\d+))\.png$</span></code>的表达式（使用嵌套括号捕获数字）来使用相同的模式提取文件名和图片号。</p>
 <p>嵌套组在模式中从左到右读取，第一个捕获组是第一个括号组的内容等。</p>
 <p><img alt="正确" src="_images/regular_expressions_lesson12_fig_1.png" /></p>
 </section>
 <section id="lesson-13-more-group-work">
-<h2>Lesson 13: 多个组的匹配（More group work）<a class="headerlink" href="#lesson-13-more-group-work" title="此标题的永久链接"></a></h2>
+<h2>Lesson 13: 多个组的匹配（More group work）<a class="headerlink" href="#lesson-13-more-group-work" title="Link to this heading"></a></h2>
 <p>正如你在前面的课程中看到的，所有的量词，包括星号<code class="docutils literal notranslate"><span class="pre">*</span></code>，加<code class="docutils literal notranslate"><span class="pre">+</span></code>，重复<code class="docutils literal notranslate"><span class="pre">{m,n}</span></code>和问号<code class="docutils literal notranslate"><span class="pre">？</span></code>都可以在捕获组模式中使用。这是在字符序列上应用量词而不是单个字符本身的唯一方法。</p>
 <p>还可以使用非捕获组（ non-capturing groups），这将允许您匹配组，但不会将其显示在结果中。</p>
 <p><img alt="正确" src="_images/regular_expressions_lesson13_fig_1.png" /></p>
 </section>
 <section id="lesson-14-it-s-all-conditional">
-<h2>Lesson 14: 选择哪一个（It’s all conditional）<a class="headerlink" href="#lesson-14-it-s-all-conditional" title="此标题的永久链接"></a></h2>
+<h2>Lesson 14: 选择哪一个（It’s all conditional）<a class="headerlink" href="#lesson-14-it-s-all-conditional" title="Link to this heading"></a></h2>
 <p>在使用组时，您可以使用<code class="docutils literal notranslate"><span class="pre">|</span></code>（logical OR, aka. the pipe）来表示不同的可能字符集。
 例如，可以写出<code class="docutils literal notranslate"><span class="pre">(milk|bread|juice)</span></code>，以仅匹配牛奶、面包或果汁。</p>
 <p>像普通组一样，您可以在条件下使用任何字符序列或元字符，例如，<code class="docutils literal notranslate"><span class="pre">（[cb]ats*|[dh]ogs?）</span></code>会匹配猫或蝙蝠，或者狗或猪。具有许多条件的写作模式可能很难阅读，因此如果它们变得太复杂，应该考虑将它们分开。</p>
 <p><img alt="正确" src="_images/regular_expressions_lesson14_fig_1.png" /></p>
 </section>
 <section id="lesson-15-other-special-characters">
-<h2>Lesson 15: 其他特殊字符（Other special characters）<a class="headerlink" href="#lesson-15-other-special-characters" title="此标题的永久链接"></a></h2>
+<h2>Lesson 15: 其他特殊字符（Other special characters）<a class="headerlink" href="#lesson-15-other-special-characters" title="Link to this heading"></a></h2>
 <p>本课将涵盖一些额外的元字符，以及捕获组的结果。</p>
 <p>我们已经学会了最常见的元字符，使用<code class="docutils literal notranslate"><span class="pre">\d</span></code>捕获数字，使用<code class="docutils literal notranslate"><span class="pre">\s</span></code>捕获空格，使用<code class="docutils literal notranslate"><span class="pre">\w</span></code>捕获字母数字和数字，但正则表达式也提供了一种通过使用大写字母来指定每个元字符的相反集的方法。</p>
 <p>例如，<code class="docutils literal notranslate"><span class="pre">\D</span></code>表示任何非数字字符，<code class="docutils literal notranslate"><span class="pre">\S</span></code>表示任何非空白字符，<code class="docutils literal notranslate"><span class="pre">\W</span></code>表示任何非字母数字字符（如标点符号）。根据您编写正则表达式的方式，选择简洁的一个使用。</p>
@@ -234,7 +239,7 @@
 <p><img alt="正确" src="_images/regular_expressions_lesson15_fig_1.png" /></p>
 </section>
 <section id="id3">
-<h2>对于本实验<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
+<h2>对于本实验<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
 <p>正则表达式可用于许多不同的程序：<code class="docutils literal notranslate"><span class="pre">Vim</span></code>、<code class="docutils literal notranslate"><span class="pre">Emacs</span></code>、<code class="docutils literal notranslate"><span class="pre">grep</span></code>、<code class="docutils literal notranslate"><span class="pre">sed</span></code>、<code class="docutils literal notranslate"><span class="pre">Python</span></code>等。</p>
 <p>从命令行中，使用<code class="docutils literal notranslate"><span class="pre">grep</span></code>进行搜索，使用<code class="docutils literal notranslate"><span class="pre">sed</span></code>进行搜索和替换。</p>
 <p>例如，要查找dcdc_unit_cell_x的所有实例（instances），其中x是一个数字，使用<code class="docutils literal notranslate"><span class="pre">grep</span></code>：</p>
@@ -286,7 +291,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2024, YU SHI.</p>
+    <p>&#169; 版权所有 2024, YU SHI。</p>
   </div>
 
   利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
