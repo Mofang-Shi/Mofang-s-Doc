@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>(2014, ACMCCS) RAPPOR &mdash; Mofang&#39;s Docs v0.0 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=c57d4d51"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="关于此文档" href="about.html" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="reStructureText语法入门" href="old_contexts/reStructureText%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8.html" />
+    <link rel="prev" title="Mofang Shi的学习笔记" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Mofang's Docs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">论文复现</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">(2014, ACMCCS) RAPPOR</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">一、算法概述</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#signal">1.信号编码（Signal）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#permanent-randomized-response-prr">2.永久性随机响应（Permanent randomized response, PRR）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instantaneous-randomized-response-irr">3.瞬时性随机响应（Instantaneous randomized response, IRR）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#report">4.报道（Report）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example">5.示例（Example）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">二、常见算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python">三、Python实现</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">旧的内容</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="old_contexts/reStructureText%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8.html">reStructureText语法入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="old_contexts/git%E4%B8%8Egh%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">git&amp;gh教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="old_contexts/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">Linux基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="old_contexts/Makefile%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">Makefile基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="old_contexts/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">正则表达式教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="old_contexts/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B.html">Vim编辑器基础教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="old_contexts/%E6%89%8B%E6%90%93%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html">Python手搓神经网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="old_contexts/%E9%81%A5%E6%84%9F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86.html">(TGRS, 2022) 遥感图像处理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">关于</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mofang's Docs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">(2014, ACMCCS) RAPPOR</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/2014_acmccs_rappor.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="acmccs-rappor">
+<h1>(2014, ACMCCS) RAPPOR<a class="headerlink" href="#acmccs-rappor" title="Link to this heading"></a></h1>
+<dl class="simple">
+<dt>论文题目:</dt><dd><p><a class="reference external" href="https://dl.acm.org/doi/abs/10.1145/2660267.2660348">RAPPOR: Randomized Aggregatable Privacy-Preserving Ordinal Response</a></p>
+</dd>
+<dt>关键词：</dt><dd><ul class="simple">
+<li><p>Local Differential Privacy, <strong>LDP</strong></p></li>
+<li><p>Randomized Response, <strong>RR</strong></p></li>
+</ul>
+</dd>
+</dl>
+<section id="id1">
+<h2>一、算法概述<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>RAPPOR是一种 <strong>单值频数统计</strong> （每个用户只发送一个变量取值，数据收集者根据已有的或统计得到的候选值列表，统计其中每一个候选值的频数并进行发布）的代表方法。
+RAPPOR采用客户端（client）的真实值 <span class="math notranslate nohighlight">\(v\)</span> ，按照一定方法以参数 <span class="math notranslate nohighlight">\(k、h、f、p、q\)</span> 在本地执行以下步骤：</p>
+<section id="signal">
+<h3>1.信号编码（Signal）<a class="headerlink" href="#signal" title="Link to this heading"></a></h3>
+<p>使用 <span class="math notranslate nohighlight">\(h\)</span> 个哈希函数（hash functions）将客户端的值 <span class="math notranslate nohighlight">\(v\)</span> 表示成一个长度为 <span class="math notranslate nohighlight">\(k\)</span> 的向量 <span class="math notranslate nohighlight">\(B\)</span> ，每一位都是 <span class="math notranslate nohighlight">\(0\)</span> 或 <span class="math notranslate nohighlight">\(1\)</span> .</p>
+</section>
+<section id="permanent-randomized-response-prr">
+<h3>2.永久性随机响应（Permanent randomized response, PRR）<a class="headerlink" href="#permanent-randomized-response-prr" title="Link to this heading"></a></h3>
+<p>对于每一个客户端的值 <span class="math notranslate nohighlight">\(v\)</span> 和位 <span class="math notranslate nohighlight">\(i (0 ≤ i &lt; k \ in \ B)\)</span> ，生成一个二进制值 <span class="math notranslate nohighlight">\({B}_{i}^{'}\)</span> ，该值等于</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}{B}_{i}^{'}=
+\begin{cases}
+1,\quad {with\ probability}\ 0.5f \\
+0,\quad {with\ probability}\ 0.5f \\
+{B}_{i}, \quad{with\ probability}\ 1-f \\
+\end{cases}\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(f\)</span> 是控制隐私级别的可调参数。
+随后，这个 <span class="math notranslate nohighlight">\({B}^{'}\)</span> 被永久储存并固定，用作 <span class="math notranslate nohighlight">\(v\)</span> 的报道值。</p>
+</section>
+<section id="instantaneous-randomized-response-irr">
+<h3>3.瞬时性随机响应（Instantaneous randomized response, IRR）<a class="headerlink" href="#instantaneous-randomized-response-irr" title="Link to this heading"></a></h3>
+<p>产生一个 <span class="math notranslate nohighlight">\(k\)</span> 位数组 <span class="math notranslate nohighlight">\(S\)</span> 并初始化每一位为 <span class="math notranslate nohighlight">\(0\)</span> 。
+以下面的概率设置  <span class="math notranslate nohighlight">\(S\)</span> 中的每个位  <span class="math notranslate nohighlight">\(i\)</span> ：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}{P(S_i=1)}=
+\begin{cases}
+q,\quad if\ {B}_{i}^{'}=1 \\
+p,\quad if\ {B}_{i}^{'}=0 \\
+\end{cases}\end{split}\]</div>
+</section>
+<section id="report">
+<h3>4.报道（Report）<a class="headerlink" href="#report" title="Link to this heading"></a></h3>
+<p>将生成的 <span class="math notranslate nohighlight">\(S\)</span> 发送到服务器（server）。</p>
+</section>
+<section id="example">
+<h3>5.示例（Example）<a class="headerlink" href="#example" title="Link to this heading"></a></h3>
+<p>下图显示了 RAPPOR 算法的过程。
+此处，客户端的值为 <span class="math notranslate nohighlight">\(v = 68\)</span> ，布隆过滤器（Bloom filter）的大小为  <span class="math notranslate nohighlight">\(k=256\)</span> ，哈希函数的数量为 <span class="math notranslate nohighlight">\(h = 4\)</span> ，
+可调随机响应参数为： <span class="math notranslate nohighlight">\(p = 0.5, q = 0.75,f = 0.5\)</span> 。发送到服务器端的报告位数组显示在图的底部，可以看出 <span class="math notranslate nohighlight">\(256\)</span> 位中的 <span class="math notranslate nohighlight">\(145\)</span> 位被置 <span class="math notranslate nohighlight">\(1\)</span> 。</p>
+<p>在 <span class="math notranslate nohighlight">\(B\)</span> （第二行） 中的 <span class="math notranslate nohighlight">\(4\)</span> 个 Bloom filter 位中，有 <span class="math notranslate nohighlight">\(2\)</span> 个传播到了 <span class="math notranslate nohighlight">\({B}^{'}\)</span> （第三位和第四位，如虚线所示）。
+由于 <span class="math notranslate nohighlight">\({B}^{'}\)</span> 的永久性质，此用户端永远不会报告另外两个bit。
+这意味着，通过来自该客户端的多个值（ “不同的” 68），攻击者最终可能会学习到 <span class="math notranslate nohighlight">\({B}^{'}\)</span> ，但很难继续推理通过差分隐私保护的 <span class="math notranslate nohighlight">\({B}\)</span> 的值。
+在实践中，获得实际客户端的值 <span class="math notranslate nohighlight">\(v\)</span> 甚至会更难，因为多个值可能会映射到 Bloom filter 中的相同位。</p>
+<a class="reference internal image-reference" href="_images/img_1.png"><img alt="_images/img_1.png" class="align-center" src="_images/img_1.png" style="width: 675.0px; height: 240.5px;" /></a>
+</section>
+</section>
+<section id="id2">
+<h2>二、常见算法<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>RAPPOR 算法可以通过多种方式进行修改，具体取决于需要隐私保护数据收集的场景的具体情况。
+下面介绍三种常见的RAPPOR算法：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>One-time RAPPOR</strong>：</p></li>
+</ul>
+<blockquote>
+<div><p>由客户端强制执行的一次性收集不需要纵向隐私保护。
+在这种情况下，可以跳过IRR步骤，并且对真实客户端的值进行直接随机化足以提供隐私保护。</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Basic RAPPOR</strong>：</p></li>
+</ul>
+<blockquote>
+<div><p>如果要收集的字符串集（The set of strings）相对较小且定义明确，并且每个字符串都可以确定性地映射到位数组中的单个位，则无需使用具有多个哈希函数的 Bloom filter。
+例如，收集有关性别的数据可以简单地使用一个两位数组，其中 “male” 映射到第 1 位（10），“female” 映射到第 2 位（01）。</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Basic One-time RAPPOR</strong>：</p></li>
+</ul>
+<blockquote>
+<div><p>这是 RAPPOR 最简单的形式，同时结合了前两个修改： 一轮随机化、使用字符串的确定性映射到唯一的位。</p>
+</div></blockquote>
+</div></blockquote>
+</section>
+<section id="python">
+<h2>三、Python实现<a class="headerlink" href="#python" title="Link to this heading"></a></h2>
+<p>文章使用Basic One-time RAPPOR 模拟了学习平均值为 <span class="math notranslate nohighlight">\(50\)</span> 和标准差 <span class="math notranslate nohighlight">\(10\)</span> 的正态分布的形状（四舍五入为整数）。
+隐私约束为： <span class="math notranslate nohighlight">\(q = 0.75,p = 0.5,f = 0\)</span> 。代码结果显示了三种不同样本量的结果。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">10000</span> <span class="c1"># 样本数</span>
+<span class="n">dim</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># 样本可取的值的数量</span>
+
+<span class="n">samples_normal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="c1"># 生成正态分布随机数</span>
+
+<span class="n">n</span><span class="p">,</span><span class="n">bins</span><span class="p">,</span><span class="n">patches</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">samples_normal</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;True Values&#39;</span><span class="p">)</span>
+
+<span class="n">one_hot_coding</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="c1">#对dim个数创建one-hot编码</span>
+
+<span class="n">coded_and_num</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">one_hot_coding</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+<span class="n">coded_and_num_without0</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">coded_and_num</span><span class="p">:</span> <span class="c1"># 去掉dim中没有数据的维度</span>
+    <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">coded_and_num_without0</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="n">rr_string_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span>  <span class="n">bits</span><span class="p">,</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">coded_and_num_without0</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">num</span><span class="p">)):</span>
+        <span class="n">rr_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="n">bits</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">bit</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">rr_bit</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mf">0.75</span><span class="p">,</span><span class="mf">0.25</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span> <span class="c1">#q</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">rr_bit</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span> <span class="c1">#p</span>
+            <span class="n">rr_string</span> <span class="o">+=</span> <span class="n">rr_bit</span>
+        <span class="n">rr_string_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rr_string</span><span class="p">)</span>
+
+<span class="n">c_i</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">dim</span>
+
+<span class="k">for</span> <span class="n">rr</span> <span class="ow">in</span> <span class="n">rr_string_list</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">rr</span><span class="p">)):</span>
+        <span class="n">c_i</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_i</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">rr</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">c_i_est</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="n">c_i</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">N</span> <span class="p">)</span><span class="o">/</span><span class="mf">0.25</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c_i</span><span class="p">))]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c_i_est</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="n">dim</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">c_i_est</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Estimate Values&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="_images/img_2.png" class="align-center" src="_images/img_2.png" />
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="index.html" class="btn btn-neutral float-left" title="Mofang Shi的学习笔记" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="old_contexts/reStructureText%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8.html" class="btn btn-neutral float-right" title="reStructureText语法入门" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2024, YU SHI。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
